@@ -1,0 +1,46 @@
+// @import '../styles/default.less';
+// @import (multiple) '../../../../node_modules/ng-zorro-antd/src/style/themes/dark';
+// @import (multiple) '../../node_modules/ng-zorro-antd/src/style/themes/dark';
+// @import (multiple) '../../node_modules/ng-zorro-antd/src/style/themes/default';
+@import "../styles/themes/mixin";
+
+
+
+:host{
+  width: 100vw;
+  height: 100vh;
+}
+
+.layout{
+  width: 100vw;
+  height: 100vh;
+  background-color: @blue-1;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .header{
+    .logo img {
+      /* margin: auto !important; */
+      width: 95px;
+      height: 60px;
+      float: left;
+    }
+    .header-menu {
+      line-height: 60px;
+      float: left;
+      flex: 1;
+    }
+    .header-login{
+      line-height: 60px;
+      float: right;
+    }
+  }
+
+  .inner-content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    // background-color: @;
+  }
+}
