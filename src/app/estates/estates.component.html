@@ -1,2 +1,29 @@
-<p>estates works!</p>
-{{estates$ | async | json}}
+@if(loading$ | async){
+<nz-spin nzSimple></nz-spin>
+}@else{
+<div class="estates-container">
+    @if(estates$ | async; as estates){
+    <nz-table #tables [nzData]="estates">
+        <thead>
+            <tr>
+                <th>adresse</th>
+                <th>loyer</th>
+                <th>charges</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let estate of tables.data">
+                <td>{{estate.address}}</td>
+                <td>{{estate._rent}}</td>
+                <td>{{estate._charges}}</td>
+                <td>
+                    <!-- <button nz-button nzType="primary" nzSize="small" (click)="editEstate(estate)">Edit</button>
+                        <button nz-button nzType="danger" nzSize="small" (click)="deleteEstate(estate)">Delete</button> -->
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    }
+</div>
+}

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Estate } from '../models/estate.model';
 import { loadEstates } from './store/estates.actions';
-import { selectEstates } from './store/estates.selectors';
+import { loadingEstates, selectEstates } from './store/estates.selectors';
 
 @Component({
   selector: 'app-estates',
@@ -12,7 +12,8 @@ import { selectEstates } from './store/estates.selectors';
 })
 export class EstatesComponent implements OnInit {
 
-  estates$: Observable<Estate[]> = this.store.select(selectEstates);
+  estates$: Observable<Estate[] | null> = this.store.select(selectEstates);
+  loading$: Observable<boolean> = this.store.select(loadingEstates);
 
   constructor(private store: Store){
 

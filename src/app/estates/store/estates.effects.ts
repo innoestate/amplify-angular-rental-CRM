@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap } from "rxjs";
 import { EstatesService } from "../../services/estates.service";
-import { catchError, EMPTY, map, of, switchMap, tap } from "rxjs";
 
 @Injectable()
 export class EstatesEffects {
