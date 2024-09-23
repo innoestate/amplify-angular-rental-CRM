@@ -6,5 +6,5 @@ export interface Estate {
     _rent: number;
     _charges: number;
     _owner: string;
-    _logger: string;
+    _logger?: string;
 }

@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppInitializerProvider } from './services/app-initializer.service';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { TodosComponent } from './todos/todos.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { TodosComponent } from './todos/todos.component';
     NzLayoutModule,
     NzMenuModule,
     AmplifyAuthenticatorModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([])
   ],
   exports: [
     NzLayoutModule,
