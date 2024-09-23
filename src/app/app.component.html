@@ -21,8 +21,8 @@
       </amplify-authenticator>
     </ng-container>
 
-
   </nz-header>
+
   <nz-content class="inner-content">
     <ng-container *ngIf="!authenticator.user">
       <amplify-authenticator>
@@ -31,5 +31,10 @@
         </ng-template>
       </amplify-authenticator>
     </ng-container>
+    <router-outlet></router-outlet>
+
+    <ng-container *ngIf="authenticator.user">
+    </ng-container>
   </nz-content>
+  
 </nz-layout>

@@ -12,10 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppInitializerProvider } from './services/app-initializer.service';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
+import { TodosComponent } from './todos/todos.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TodosComponent
   ],
   imports: [
     CommonModule,
