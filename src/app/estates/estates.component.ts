@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Estate } from '../models/estate.model';
+import { Estate } from '../core/models/estate.model';
 import { loadEstates } from './store/estates.actions';
 import { loadingEstates, selectEstates } from './store/estates.selectors';
 

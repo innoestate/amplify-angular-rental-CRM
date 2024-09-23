@@ -1,33 +1,33 @@
 import { createReducer, on } from "@ngrx/store";
-import { Estate } from "../../core/models/estate.model";
-import { loadEstates, loadEstatesFailure, loadEstatesSuccess } from "./estates.actions";
+import { Owner } from "../../core/models/owner.model";
+import { loadOwners, loadOwnersFailure, loadOwnersSuccess } from "./owners.actions";
 
 export interface State {
-    estates: Estate[];
+    owners: Owner[];
     loading: boolean;
 }
 
 export const initialState: State = {
-    estates: [],
+    owners: [],
     loading: false
 };
 
-export const estatesReducer = createReducer(
+export const ownersReducer = createReducer(
     initialState,
-    on(loadEstates, (state, data) => {
+    on(loadOwners, (state, data) => {
         return {
             ...state,
             loading: true
         }
     }),
-    on(loadEstatesSuccess, (state, data) => {
+    on(loadOwnersSuccess, (state, data) => {
         return {
             ...state,
             loading: false,
-            estates: data.estates
+            owners: data.owners
         }
     }),
-    on(loadEstatesFailure, (state, error) => {
+    on(loadOwnersFailure, (state, error) => {
         return {
             ...state,
             loading: false

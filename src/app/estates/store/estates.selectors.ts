@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { formatEstate } from "../../utils/estates.utils";
+import { formatEstate } from "../../core/utils/estates.utils";
 import { State } from "./estates.reducers";
 
 

@@ -10,11 +10,12 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppInitializerProvider } from './services/app-initializer.service';
+import { AppInitializerProvider } from './core/services/app-initializer.service';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { TodosComponent } from './todos/todos.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EffectsModule } from '@ngrx/effects';
     AmplifyAuthenticatorModule,
     AppRoutingModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument(),
   ],
   exports: [
     NzLayoutModule,

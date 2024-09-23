@@ -1,0 +1,10 @@
+@if(loading$ | async){
+<nz-spin nzSimple></nz-spin>
+}@else{
+<div *ngFor="let owner of owners$ | async">
+    <nz-card [nzTitle]="owner._name">
+        <p>{{owner._street}}</p>
+        <p>{{owner._zip}} {{owner._city}}</p>
+    </nz-card>
+</div>
+}

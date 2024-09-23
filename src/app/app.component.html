@@ -6,9 +6,8 @@
       <div class="logo">
       </div>
 
-      <li nz-menu-item>about us</li>
-      <li nz-menu-item>statistics</li>
-      <li nz-menu-item>dashboard</li>
+      <li nz-menu-item [routerLink]="['owners']">Propriétaires</li>
+      <li nz-menu-item [routerLink]="['estates']">Biens</li>
 
     </ul>
     <ng-container *ngIf="authenticator.user">
