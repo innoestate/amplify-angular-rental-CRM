@@ -13,7 +13,7 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.owner()]),
   Owner: a.model({
-    _id: a.id(),
+    id: a.id(),
     _name: a.string(),
     _street: a.string(),
     _city: a.string(),
@@ -23,7 +23,7 @@ const schema = a.schema({
   })
     .authorization((allow) => [allow.owner()]),
   Estate: a.model({
-    _id: a.id(),
+    id: a.id(),
     _street: a.string(),
     _city: a.string(),
     _zip: a.string(),

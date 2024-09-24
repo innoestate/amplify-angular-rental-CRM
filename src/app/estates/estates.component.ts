@@ -40,7 +40,6 @@ export class EstatesComponent implements OnInit {
   }
 
   deleteEstate(estate: Estate){
-    console.log('delete estate', estate);
     this.store.dispatch({ type: '[Estates] Delete Estate', estate });
   }
 

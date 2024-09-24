@@ -25,8 +25,11 @@ export class OwnersService {
     return from(client.models.Owner.create(owner as any));
   }
 
-  deleteOwner(owner: Owner): Observable<any> {
-    return from(client.models.Owner.delete({ id: owner.id! }));
+  deleteOwner(ownerId: string): Observable<any> {
+    const readOnlyId = '' + ownerId;
+    return from(client.models.Owner.delete({ id: readOnlyId })).pipe(
+      map(result => result.data)
+    )
   }
 
 }

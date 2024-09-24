@@ -1,0 +1,15 @@
+<nz-modal (nzVisible)="toogleVisible($event)"
+          [nzVisible]="visible$ | async"
+          [nzOkDisabled]="formGroup.invalid"
+          nzTitle="Créer un nouveau propriétaire"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <form [formGroup]="formGroup" class="create-owner-modal-form-content">
+      <input formControlName="_name" nz-input placeholder="Prénom et Nom"/>
+      <input formControlName="_street" nz-input placeholder="Adresse (numéro et rue)"/>
+      <input formControlName="_city" nz-input placeholder="Ville"/>
+      <input formControlName="_zip" nz-input placeholder="Code Postal"/>
+    </form>
+  </ng-container>
+</nz-modal>

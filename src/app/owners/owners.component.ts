@@ -30,20 +30,11 @@ export class OwnersComponent implements OnInit{
   }
 
   createOwner() {
-    const owner: Owner = {
-      _name: 'John Doe',
-      _street: '123 Main St',
-      _city: 'Anytown',
-      _zip: '12345',
-      _email: '',
-      _phone: ''
-    };
-    this.store.dispatch({ type: '[Owners] Add Owner', owner });
-
+    this.store.dispatch({ type: '[Owners] Toogle Create Owner Modal', visible: true });
   }
 
   deleteOwner(owner: Owner) {
-    this.store.dispatch({ type: '[Owners] Delete Owner', owner });
+    this.store.dispatch({ type: '[Owners] Delete Owner', ownerId: owner.id! });
   }
 
 }

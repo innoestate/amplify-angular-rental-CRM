@@ -14,3 +14,8 @@ export const loadingOwners = createSelector(
     ownersSelector,
     (state) => state.loading
 )
+
+export const createOwnerModalVisible = createSelector(
+    ownersSelector,
+    (state) => state.createOwnerModalVisible
+)
