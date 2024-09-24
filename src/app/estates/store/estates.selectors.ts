@@ -14,3 +14,8 @@ export const loadingEstates = createSelector(
     estatesSelector,
     (state) => state.loading
 )
+
+export const createEstateModalVisible = createSelector(
+    estatesSelector,
+    (state) => state.createEstateModalVisible
+);

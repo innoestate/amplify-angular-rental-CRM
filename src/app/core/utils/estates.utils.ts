@@ -13,6 +13,11 @@ export const formatEstates = (estates: Estate[], owners: Owner[]): Estate[] => {
   return formatedEstates;
 }
 
+export const setOwner = (estate: Estate, owners: Owner[]): Estate => {
+  const owner = owners.find(owner => owner.id === estate._owner);
+  return {...estate, owner: owner};
+}
+
 export const formatEstate = (estate: Estate) => {
     return ({...estate, address: estate._street + ' ' + estate._zip + ' ' + estate._city, city: estate._zip + ' ' + estate._city});
 }

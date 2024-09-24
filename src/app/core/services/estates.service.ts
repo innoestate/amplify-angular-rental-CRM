@@ -21,7 +21,16 @@ export class EstatesService {
   }
 
   createEstate(estate: Estate): Observable<any> {
-    return from(client.models.Estate.create(estate as any));
+    return from(client.models.Estate.create(estate as any)).pipe(
+      map(result => {
+        if ((result as any)['errors']) {
+          throw new Error('unknow error');
+        }
+        console.log('front estate', estate);
+        console.log('ok', result);
+        return { ...estate, ...(result.data as any), _owner: estate._owner };
+      })
+    )
   }
 
   deleteEstate(estate: Estate): Observable<any> {

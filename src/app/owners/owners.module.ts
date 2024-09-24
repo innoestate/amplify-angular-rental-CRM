@@ -10,8 +10,8 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { CreateOwnerModalComponent } from './components/create-owner-modal/create-owner-modal.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { CreateOwnerModalComponent } from './components/create-owner-modal/create-owner-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

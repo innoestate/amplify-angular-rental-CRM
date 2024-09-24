@@ -28,15 +28,16 @@ export class EstatesComponent implements OnInit {
   }
 
   createEstate(){
-    const estate: Estate = {
-      _street: 'Street 1',
-      _city: 'City 1',
-      _zip: 'Zip 1',
-      _rent: 1000,
-      _charges: 100,
-      _owner: 'Owner 1'
-    };
-    this.store.dispatch({ type: '[Estates] Create Estate', estate });
+    this.store.dispatch({ type: '[Estates] Toogle Create Estate Modal', visible: true });
+    // const estate: Estate = {
+    //   _street: 'Street 1',
+    //   _city: 'City 1',
+    //   _zip: 'Zip 1',
+    //   _rent: 1000,
+    //   _charges: 100,
+    //   _owner: 'Owner 1'
+    // };
+    // this.store.dispatch({ type: '[Estates] Create Estate', estate });
   }
 
   deleteEstate(estate: Estate){
