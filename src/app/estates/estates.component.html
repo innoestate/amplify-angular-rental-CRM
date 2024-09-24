@@ -1,11 +1,13 @@
 @if(loading$ | async){
 <nz-spin nzSimple></nz-spin>
 }@else{
+  {{owners$ | async}}
 <div class="estates-container">
     @if(estates$ | async; as estates){
     <nz-table #tables [nzData]="estates">
         <thead>
             <tr>
+                <th>propriétare</th>
                 <th>adresse</th>
                 <th>loyer</th>
                 <th>charges</th>
@@ -13,7 +15,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let estate of tables.data">
+            <tr *ngFor="let estate of tables.data" (click)="deleteEstate(estate)">
+                <td>{{estate.owner?._name}}</td>
                 <td>{{estate.address}}</td>
                 <td>{{estate._rent}}</td>
                 <td>{{estate._charges}}</td>
@@ -27,3 +30,5 @@
     }
 </div>
 }
+
+<button (click)="createEstate()">create estate</button>

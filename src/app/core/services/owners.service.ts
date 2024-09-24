@@ -15,18 +15,18 @@ export class OwnersService {
 
   constructor() { }
 
-  getOwners(userId: number): Observable<any> {
-   return from(client.models.Owner.list()).pipe(
-    map(result => result.data)
-   )
+  getOwners(): Observable<any> {
+    return from(client.models.Owner.list()).pipe(
+      map(result => result.data)
+    )
   }
 
   createOwner(owner: Owner): Observable<any> {
     return from(client.models.Owner.create(owner as any));
-    try {
-    } catch (error) {
-      console.error('error creating owner', error);
-    }
+  }
+
+  deleteOwner(owner: Owner): Observable<any> {
+    return from(client.models.Owner.delete({ id: owner.id! }));
   }
 
 }

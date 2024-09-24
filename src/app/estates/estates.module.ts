@@ -8,6 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { EstatesEffects } from './store/estates.effects';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { ownersReducer } from '../owners/store/owners.reducers';
+import { OwnersEffects } from '../owners/store/owners.effects';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     EstatesRoutingModule,
     StoreModule.forFeature('estates', estatesReducer),
     EffectsModule.forFeature(EstatesEffects),
+    StoreModule.forFeature('owners', ownersReducer),
+    EffectsModule.forFeature(OwnersEffects),
     NzTableModule,
     NzSpinModule
   ],

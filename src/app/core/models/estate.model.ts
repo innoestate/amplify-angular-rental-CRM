@@ -1,5 +1,7 @@
+import { Owner } from "./owner.model";
+
 export interface Estate {
-    _id: number;
+    id?: string;
     _street: string;
     _city: string;
     _zip: string;
@@ -9,4 +11,5 @@ export interface Estate {
     _logger?: string;
     address?: string;
     city?: string;
+    owner?: Owner;
 }

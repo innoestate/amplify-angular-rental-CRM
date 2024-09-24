@@ -22,6 +22,17 @@ const schema = a.schema({
     _phone: a.string()
   })
     .authorization((allow) => [allow.owner()]),
+  Estate: a.model({
+    _id: a.id(),
+    _street: a.string(),
+    _city: a.string(),
+    _zip: a.string(),
+    _rent: a.integer(),
+    _charges: a.integer(),
+    _owner: a.string(),
+    _logger: a.string()
+  })
+    .authorization((allow) => [allow.owner()])
 });
 
 export type Schema = ClientSchema<typeof schema>;
