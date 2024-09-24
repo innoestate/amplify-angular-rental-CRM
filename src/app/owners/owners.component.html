@@ -2,9 +2,11 @@
 <nz-spin nzSimple></nz-spin>
 }@else{
 <div *ngFor="let owner of owners$ | async">
-    <nz-card [nzTitle]="owner._name">
+    <nz-card [nzTitle]="owner._name" (click)="deleteOwner(owner)">
         <p>{{owner._street}}</p>
         <p>{{owner._zip}} {{owner._city}}</p>
     </nz-card>
 </div>
 }
+
+<button (click)="createOwner()">create owner</button>
