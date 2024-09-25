@@ -9,6 +9,7 @@ export interface Estate {
     _charges: number;
     _owner: string;
     _logger?: string;
+    _parcel?: string;
     address?: string;
     city?: string;
     owner?: Owner;

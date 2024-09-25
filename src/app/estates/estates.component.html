@@ -9,6 +9,7 @@
             <tr>
                 <th>propriétare</th>
                 <th>adresse</th>
+                <th>lot</th>
                 <th>loyer</th>
                 <th>charges</th>
                 <th>Actions</th>
@@ -18,6 +19,7 @@
             <tr *ngFor="let estate of tables.data" (click)="deleteEstate(estate)">
                 <td>{{estate.owner?._name}}</td>
                 <td>{{estate.address}}</td>
+                <td>{{estate._parcel}}</td>
                 <td>{{estate._rent}}</td>
                 <td>{{estate._charges}}</td>
                 <td>

@@ -27,6 +27,7 @@ const schema = a.schema({
     _street: a.string(),
     _city: a.string(),
     _zip: a.string(),
+    _parcel: a.integer(),
     _rent: a.integer(),
     _charges: a.integer(),
     _owner: a.string(),

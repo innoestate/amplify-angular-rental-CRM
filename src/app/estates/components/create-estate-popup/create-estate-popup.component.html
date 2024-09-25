@@ -12,10 +12,12 @@
         </ng-container>
       </nz-select>
       <input formControlName="_street" nz-input placeholder="Adresse (numéro et rue)"/>
-      <input formControlName="_city" nz-input placeholder="Ville (numéro et rue)"/>
       <input formControlName="_zip" nz-input placeholder="Code Postal"/>
+      <input formControlName="_city" nz-input placeholder="Ville (numéro et rue)"/>
+      <input formControlName="_parcel" type="number" nz-input placeholder="Lot"/>
       <input formControlName="_rent" type="number" nz-input placeholder="Loyer (hors charges)"/>
       <input formControlName="_charges" type="number" nz-input placeholder="charges"/>
+
     </form>
   </ng-container>
 </nz-modal>

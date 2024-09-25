@@ -18,6 +18,7 @@ export class CreateEstatePopupComponent {
     _street: ['', Validators.required],
     _city: ['', Validators.required],
     _zip: ['', Validators.required],
+    _parcel: [null],
     _rent: [null],
     _charges: [null]
   });
