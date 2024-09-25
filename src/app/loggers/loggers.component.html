@@ -1,0 +1,12 @@
+@if(loading$ | async){
+<nz-spin nzSimple></nz-spin>
+}@else{
+<div *ngFor="let lodger of lodgers$ | async">
+    <nz-card [nzTitle]="lodger._name" (click)="deleteLodger(lodger)">
+        <p>{{lodger._street}}</p>
+        <p>{{lodger._zip}} {{lodger._city}}</p>
+    </nz-card>
+</div>
+}
+<create-lodger-popup></create-lodger-popup>
+<button nz-button nzType="primary" (click)="createLodger()">create lodger</button>

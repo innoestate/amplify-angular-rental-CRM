@@ -1,7 +1,6 @@
 @if(loading$ | async){
 <nz-spin nzSimple></nz-spin>
 }@else{
-  {{owners$ | async}}
 <div class="estates-container">
     @if(estates$ | async; as estates){
     <nz-table #tables [nzData]="estates">

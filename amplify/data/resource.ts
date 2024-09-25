@@ -10,8 +10,7 @@ const schema = a.schema({
   Todo: a
     .model({
       content: a.string(),
-    })
-    .authorization((allow) => [allow.owner()]),
+    }).authorization((allow) => [allow.owner()]),
   Owner: a.model({
     id: a.id(),
     _name: a.string(),
@@ -20,8 +19,7 @@ const schema = a.schema({
     _zip: a.string(),
     _email: a.string(),
     _phone: a.string()
-  })
-    .authorization((allow) => [allow.owner()]),
+  }).authorization((allow) => [allow.owner()]),
   Estate: a.model({
     id: a.id(),
     _street: a.string(),
@@ -32,8 +30,18 @@ const schema = a.schema({
     _charges: a.integer(),
     _owner: a.string(),
     _logger: a.string()
-  })
-    .authorization((allow) => [allow.owner()])
+  }).authorization((allow) => [allow.owner()]),
+  Lodger: a.model({
+    id: a.id(),
+    _name: a.string(),
+    _street: a.string(),
+    _city: a.string(),
+    _zip: a.string(),
+    _email: a.string(),
+    _phone: a.string(),
+    _estate: a.string()
+  }).authorization((allow) => [allow.owner()]),
+
 });
 
 export type Schema = ClientSchema<typeof schema>;

@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OwnersComponent } from './owners.component';
-import { OwnersRoutingModule } from './estates.routes';
+import { LoggersComponent } from './loggers.component';
+import { LoggersRoutingModule } from './loggers.routes';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { OwnersEffects } from './store/owners.effects';
-import { ownersReducer } from './store/owners.reducers';
+import { LodgersReducer } from './store/lodgers.reducers';
+import { LodgersEffects } from './store/lodgers.effects';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { CreateOwnerModalComponent } from './components/create-owner-modal/create-owner-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateLodgerPopupComponent } from './components/create-logger-popup/create-lodger-popup.component';
 
 @NgModule({
   declarations: [
-    OwnersComponent,
-    CreateOwnerModalComponent
+    LoggersComponent,
+    CreateLodgerPopupComponent
   ],
   imports: [
     CommonModule,
-    OwnersRoutingModule,
-    StoreModule.forFeature('owners', ownersReducer),
-    EffectsModule.forFeature(OwnersEffects),
+    LoggersRoutingModule,
+    StoreModule.forFeature('lodgers', LodgersReducer),
+    EffectsModule.forFeature(LodgersEffects),
     ReactiveFormsModule,
     NzCardModule,
     NzSpinModule,
@@ -32,4 +32,4 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzInputModule
   ]
 })
-export class OwnersModule { }
+export class LoggersModule { }
