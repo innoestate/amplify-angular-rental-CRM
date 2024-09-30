@@ -51,6 +51,10 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [{
+                "replace": "src/app/build-specifics/index.ts",
+                "with": "src/app/build-specifics/index.prod.ts"
+              }],
               "budgets": [
                 {
                   "type": "initial",
@@ -82,10 +86,7 @@
             "development": {
               "buildTarget": "amplify-angular-template:build:development"
             },
-            {
-              "replace": "src/app/build-specifics/index.ts",
-              "with": "src/app/build-specifics/index.prod.ts"
-            }
+
           },
           "defaultConfiguration": "development"
         },
