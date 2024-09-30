@@ -15,7 +15,7 @@ import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { TodosComponent } from './todos/todos.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument(),
+    // StoreDevtoolsModule.instrument(),
   ],
   exports: [
     NzLayoutModule,
