@@ -1,3 +1,4 @@
+import { Lodger } from "./lodger.model";
 import { Owner } from "./owner.model";
 
 export interface Estate {
@@ -13,4 +14,5 @@ export interface Estate {
     address?: string;
     city?: string;
     owner?: Owner;
+    lodger?: Lodger;
 }

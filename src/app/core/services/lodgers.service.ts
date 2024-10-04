@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { generateClient } from 'aws-amplify/api';
-import { from, map, Observable } from 'rxjs';
+import { from, map, Observable, tap } from 'rxjs';
 import { Schema } from '../../../../amplify/data/resource';
 import { Lodger } from '../models/lodger.model';
 
@@ -28,6 +28,33 @@ export class LodgersService {
     return from(client.models.Lodger.delete({ id: readOnlyId })).pipe(
       map(result => result.data)
     )
+  }
+
+  updateLodger(lodger: Lodger, lodgers: Lodger[]): Observable<any> {
+
+    return this.updateLodgers([lodger]);
+
+  }
+
+  updateLodgers(lodgers: Lodger[]): Observable<any> {
+
+    const updateManyLodgers = async (lodgers: Partial<Lodger>[]) => {
+
+      let updatedLodgers: any = [];
+      try {
+        const promises = lodgers.map((lodger) => {
+          const newLodger = {id: lodger.id, _estate: lodger._estate};
+          return client.models.Lodger.update(newLodger as any);
+        });
+
+        updatedLodgers = (await Promise.all(promises)).map(result => result?.data);
+      } catch (error) {
+        console.error('Error updating lodgers:', error);
+      }
+      return updatedLodgers;
+    };
+
+    return from(updateManyLodgers(lodgers));
   }
 
 }

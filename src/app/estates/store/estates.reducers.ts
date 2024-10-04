@@ -1,17 +1,19 @@
 import { createReducer, on } from "@ngrx/store";
 import { Estate } from "../../core/models/estate.model";
-import { createEstate, createEstateFailure, createEstateSuccess, deleteEstateSuccess, loadEstates, loadEstatesFailure, loadEstatesSuccess, toogleCreateEstateModalSuccess } from "./estates.actions";
+import { createEstate, createEstateFailure, createEstateSuccess, deleteEstateSuccess, loadEstates, loadEstatesFailure, loadEstatesSuccess, toogleCreateEstateModalSuccess, toogleSetLodgerModalSuccess } from "./estates.actions";
 
 export interface State {
   estates: Estate[];
   loading: boolean;
   createEstateModalVisible: boolean;
+  setLodgerModalVisible: boolean;
 }
 
 export const initialState: State = {
   estates: [],
   loading: false,
-  createEstateModalVisible: false
+  createEstateModalVisible: false,
+  setLodgerModalVisible: false
 };
 
 export const estatesReducer = createReducer(
@@ -42,7 +44,6 @@ export const estatesReducer = createReducer(
     }
   }),
   on(createEstateSuccess, (state, data) => {
-    console.log('estate success', data.estate);
     return {
       ...state,
       // loading: false,
@@ -66,6 +67,12 @@ export const estatesReducer = createReducer(
     return {
       ...state,
       createEstateModalVisible: data.visible
+    }
+  }),
+  on(toogleSetLodgerModalSuccess, (state, data) => {
+    return {
+      ...state,
+      setLodgerModalVisible: data.visible
     }
   })
 )

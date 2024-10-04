@@ -19,3 +19,8 @@ export const createEstateModalVisible = createSelector(
     estatesSelector,
     (state) => state.createEstateModalVisible
 );
+
+export const setLodgerModalVisible = createSelector(
+  estatesSelector,
+  (state) => state.setLodgerModalVisible
+);

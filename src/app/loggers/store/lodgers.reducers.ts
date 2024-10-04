@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { addLodger, addLodgerFailure, addLodgerSuccess, deleteLodger, deleteLodgerFailure, deleteLodgerSuccess, loadLodgers, loadLodgersFailure, loadLodgersSuccess, toogleCreateLodgerModal, toogleCreateLodgerModalSuccess } from "./lodgers.actions";
+import { addLodger, addLodgerFailure, addLodgerSuccess, deleteLodger, deleteLodgerFailure, deleteLodgerSuccess, loadLodgers, loadLodgersFailure, loadLodgersSuccess, toogleCreateLodgerModal, toogleCreateLodgerModalSuccess, updateLodgerEstate, updateLodgersSuccess } from "./lodgers.actions";
 import { Lodger } from "../../core/models/lodger.model";
 
 export interface State {
@@ -41,7 +41,6 @@ export const LodgersReducer = createReducer(
         }
     }),
     on(addLodgerSuccess, (state, data) => {
-      console.log('data', data)
         return {
             ...state,
             lodgers: state.lodgers.concat(data.lodger)
@@ -66,6 +65,14 @@ export const LodgersReducer = createReducer(
     on(deleteLodgerFailure, (state, error) => {
         return {
             ...state,
+        }
+    }),
+    on(updateLodgersSuccess, (state, data) => {
+        return {
+            ...state,
+            lodgers: state.lodgers.map(lodger => {
+                return data.lodgers.find(updated => updated?.id === lodger.id)??lodger;
+            })
         }
     }),
     on(toogleCreateLodgerModalSuccess, (state, data) => {

@@ -13,6 +13,10 @@ export const deleteLodger = createAction('[Lodgers] Delete Lodger', props<{ Lodg
 export const deleteLodgerSuccess = createAction('[Lodgers] Delete Lodger Success', props<{ lodgerId: string }>());
 export const deleteLodgerFailure = createAction('[Lodgers] Delete Lodger Failure', props<{ error: any }>());
 
+export const updateLodgerEstate = createAction('[Lodgers] Update Lodger Estate', props<{ lodger: Lodger, lodgers: Lodger[] }>());
+export const updateLodgersSuccess = createAction('[Lodgers] Update Lodgers Success', props<{ lodgers: Lodger[] }>());
+export const updateLodgerFailure = createAction('[Lodgers] Update Lodgers Failure', props<{ error: any }>());
+
 export const toogleCreateLodgerModal = createAction('[Lodgers] Toogle Create Lodger Modal', props<{ visible: any }>());
 export const toogleCreateLodgerModalSuccess = createAction('[Lodgers] Toogle Create Lodger Modal Success');
 export const toogleCreateLodgerModalFailure = createAction('[Lodgers] Toogle Create Lodger Modal Failure', props<{ error: any }>());

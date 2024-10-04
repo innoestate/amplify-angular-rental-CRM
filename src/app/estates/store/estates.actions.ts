@@ -16,3 +16,7 @@ export const deleteEstateFailure = createAction('[Estates] Delete Estate Failure
 export const toogleCreateEstateModal = createAction('[Estates] Toogle Create Estate Modal', props<{ visible: boolean }>());
 export const toogleCreateEstateModalSuccess = createAction('[Estates] Toogle Create Estate Modal Success', props<{ visible: boolean }>());
 export const toogleCreateEstateModalFailure = createAction('[Estates] Toogle Create Estate Modal Failure', props<{ error: any }>());
+
+export const toogleSetLodgerModal = createAction('[Estates] Toogle Set Lodger Modal', props<{ visible: boolean }>());
+export const toogleSetLodgerModalSuccess = createAction('[Estates] Toogle Set Lodger Modal Success', props<{ visible: boolean }>());
+export const toogleSetLodgerModalFailure = createAction('[Estates] Toogle Set Lodger Modal Failure', props<{ error: any }>());

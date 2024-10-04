@@ -18,11 +18,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { LodgersReducer } from '../loggers/store/lodgers.reducers';
+import { LodgersEffects } from '../loggers/store/lodgers.effects';
+import { SetLodgerPopupComponent } from './components/set-lodger-popup/set-lodger-popup.component';
 
 @NgModule({
   declarations: [
     EstatesComponent,
-    CreateEstatePopupComponent
+    CreateEstatePopupComponent,
+    SetLodgerPopupComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +36,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     EffectsModule.forFeature(EstatesEffects),
     StoreModule.forFeature('owners', ownersReducer),
     EffectsModule.forFeature(OwnersEffects),
+    StoreModule.forFeature('lodgers', LodgersReducer),
+    EffectsModule.forFeature(LodgersEffects),
     NzTableModule,
     NzCardModule,
     NzSpinModule,

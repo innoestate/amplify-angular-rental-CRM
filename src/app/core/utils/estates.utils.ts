@@ -1,13 +1,15 @@
 import { Estate } from "../models/estate.model";
+import { Lodger } from "../models/lodger.model";
 import { Owner } from "../models/owner.model";
 
 
-export const formatEstates = (estates: Estate[], owners: Owner[]): Estate[] => {
+export const formatEstates = (estates: Estate[], owners: Owner[], lodgers: Lodger[]): Estate[] => {
   const formatedEstates: any[] = [];
 
   estates.forEach(estate => {
     const owner = owners.find(owner => owner.id === estate._owner);
-    formatedEstates.push({...estate, owner: owner});
+    const lodger = lodgers.find(lodger => lodger._estate === estate.id);
+    formatedEstates.push({...estate, owner, lodger});
   });
 
   return formatedEstates;

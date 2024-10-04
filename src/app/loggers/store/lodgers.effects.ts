@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, iif, map, of, switchMap, tap, withLatestFrom } from "rxjs";
 import { Store } from "@ngrx/store";
-import { selectLodgers } from "./lodgers.selectors";
+import { catchError, map, of, switchMap, withLatestFrom } from "rxjs";
+import { Lodger } from "../../core/models/lodger.model";
 import { LodgersService } from "../../core/services/lodgers.service";
+import { selectLodgers } from "./lodgers.selectors";
+import { setLodgerToEstate } from '../../core/utils/lodgers.utils';
 
 @Injectable()
 export class LodgersEffects {
@@ -28,7 +30,7 @@ export class LodgersEffects {
   addLodger$ = createEffect(() => this.actions$.pipe(
     ofType('[Lodgers] Add Lodger'),
     switchMap(({ Lodger }) => this.lodgerService.createLodger(Lodger).pipe(
-      map( data => ({ type: '[Lodgers] Add Lodger Success', lodger: (data as any).data })),
+      map(data => ({ type: '[Lodgers] Add Lodger Success', lodger: (data as any).data })),
       catchError(() => of({ type: '[Lodgers] Load Lodgers Failure' }))
     ))
   ))
@@ -36,8 +38,19 @@ export class LodgersEffects {
   removeLodger$ = createEffect(() => this.actions$.pipe(
     ofType('[Lodgers] Delete Lodger'),
     switchMap(data => this.lodgerService.deleteLodger((data as any).LodgerId).pipe(
-      map( data => ({ type: '[Lodgers] Delete Lodger Success', lodgerId: data.id })),
+      map(data => ({ type: '[Lodgers] Delete Lodger Success', lodgerId: data.id })),
       catchError(() => of({ type: '[Lodgers] Delete Lodger Failure' }))
+    ))
+  ))
+
+
+  updateLodgerEstate$ = createEffect(() => this.actions$.pipe(
+    ofType('[Lodgers] Update Lodger Estate'),
+    withLatestFrom(this.store.select(selectLodgers)),
+    map(([action, lodgers]) => setLodgerToEstate((action as any).lodger, lodgers)),
+    switchMap(loggers => this.lodgerService.updateLodgers(loggers).pipe(
+      map(lodgers => ({ type: '[Lodgers] Update Lodgers Success', lodgers })),
+      catchError(() => of({ type: '[Lodgers] Update Lodgers Failure' }))
     ))
   ))
 

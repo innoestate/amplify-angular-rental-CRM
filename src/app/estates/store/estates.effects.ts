@@ -5,6 +5,7 @@ import { EstatesService } from "../../core/services/estates.service";
 import { Store } from "@ngrx/store";
 import { ownersSelector } from "../../owners/store/owners.selectors";
 import { formatEstates, setOwner } from "../../core/utils/estates.utils";
+import { lodgersSelector } from "../../loggers/store/lodgers.selectors";
 
 @Injectable()
 export class EstatesEffects {
@@ -14,11 +15,19 @@ export class EstatesEffects {
   loadEstates$ = createEffect(() => this.actions$.pipe(
     ofType('[Estates] Load Estates'),
     tap(() => this.store.dispatch({ type: '[Owners] Load Owners' })),
-    switchMap(() => this.store.select(ownersSelector)),
-    switchMap(data => combineLatest([of(data?.owners), this.estatesService.getEstates()]).pipe(
-      map(([owners, estates]) => ({ type: '[Estates] Load Estates Success', estates: formatEstates(estates, owners) })),
+    tap(() => this.store.dispatch({ type: '[Lodgers] Load Lodgers' })),
+
+    switchMap(() => this.estatesService.getEstates().pipe(
+      map((estates) => ({ type: '[Estates] Load Estates Success', estates })),
       catchError(() => of({ type: '[Estates] Load Estates Failure' })))
     )))
+
+
+
+  // switchMap(() => combineLatest([this.store.select(ownersSelector), this.store.select(lodgersSelector), this.estatesService.getEstates()]).pipe(
+  //   map(([dataOwners, dataLodgers, estates]) => ({ type: '[Estates] Load Estates Success', estates: formatEstates(estates, dataOwners.owners, dataLodgers.lodgers) })),
+  //   catchError(() => of({ type: '[Estates] Load Estates Failure' })))
+  // )))
 
   createEstate$ = createEffect(() => this.actions$.pipe(
     ofType('[Estates] Create Estate'),
@@ -34,6 +43,12 @@ export class EstatesEffects {
     ofType('[Estates] Toogle Create Estate Modal'),
     map(({ visible }) => ({ type: '[Estates] Toogle Create Estate Modal Success', visible })),
     catchError(() => of({ type: '[Estates] Toogle Create Estate Modal Failure' }))
+  ))
+
+  toogleSetLodgerModal$ = createEffect(() => this.actions$.pipe(
+    ofType('[Estates] Toogle Set Lodger Modal'),
+    map(({ visible }) => ({ type: '[Estates] Toogle Set Lodger Modal Success', visible })),
+    catchError(() => of({ type: '[Estates] Toogle Set Lodger Failure' }))
   ))
 
   deleteEstate$ = createEffect(() => this.actions$.pipe(

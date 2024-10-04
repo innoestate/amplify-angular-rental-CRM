@@ -1,0 +1,10 @@
+<nz-modal (nzVisible)="toogleVisible($event)" [nzVisible]="visible$ | async" [nzOkDisabled]="!selectedLodger"
+  nzTitle="ajouter un nouveau bien" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <ng-container *ngFor="let lodger of lodgers$ | async">
+      <nz-card [ngClass]="{'selected': (lodger.id === selectedLodger?.id)}" (click)="selectLodger(lodger)">
+        {{ lodger._name }}
+      </nz-card>
+    </ng-container>
+  </ng-container>
+</nz-modal>
