@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { getRentReceipt } from '../functions/rentReceipt/resource';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -41,6 +42,17 @@ const schema = a.schema({
     _phone: a.string(),
     _estate: a.string()
   }).authorization((allow) => [allow.owner()]),
+
+
+  getRentReceipt: a
+    .query()
+    .arguments({
+      name: a.string(),
+    })
+    .authorization((allow) => [allow.authenticated()])
+    .returns(a.string())
+    .handler(a.handler.function(getRentReceipt))
+
 
 });
 
