@@ -1,7 +1,10 @@
 @if(loading$ | async){
 <nz-spin nzSimple></nz-spin>
 }@else{
-<div class="estates-container">
+<div class="table-container">
+  <div class="table-header">
+    <button nz-button nzType="default" (click)="createEstate()">Ajouter un bien</button>
+  </div>
   @if(estates$ | async; as estates){
   <nz-table #tables [nzData]="estates">
     <thead>
@@ -17,29 +20,29 @@
     </thead>
     <tbody>
       <tr *ngFor="let estate of tables.data">
-        <td nz-dropdown [nzDropdownMenu]="menuOwners">{{estate.owner?._name}}</td>
+        <td nz-dropdown [nzDropdownMenu]="menuOwners" class="clickable">{{estate.owner?._name}}</td>
         <td>{{estate.address}}</td>
 
-        <td class="editable-cell-number" (click)="startEdit(estate.id! + '_parcel', editableParcelInput)">
+        <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_parcel', editableParcelInput)">
           <div [hidden]="editId === estate.id + '_parcel'">{{estate._parcel}}</div>
           <input nz-demo-input-number-basic #editableParcelInput [value]="estate._parcel"
             [hidden]="editId !== estate.id + '_parcel'" type="number" (blur)="stopEdit()"
             (change)="edit(estate, '_parcel', editableParcelInput)" />
         </td>
-        <td class="editable-cell-number" (click)="startEdit(estate.id! + '_rent', editableRentInput)">
+        <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_rent', editableRentInput)">
           <div [hidden]="editId === estate.id + '_rent'">{{estate._rent}}</div>
           <input nz-demo-input-number-basic #editableRentInput [value]="estate._rent"
             [hidden]="editId !== estate.id + '_rent'" type="number" (blur)="stopEdit()"
             (change)="edit(estate, '_rent', editableRentInput)" />
         </td>
-        <td class="editable-cell-number" (click)="startEdit(estate.id! + '_charges', editableChargesInput)">
+        <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_charges', editableChargesInput)">
           <div [hidden]="editId === estate.id + '_charges'">{{estate._charges}}</div>
           <input nz-demo-input-number-basic #editableChargesInput [value]="estate._charges"
             [hidden]="editId !== estate.id + '_charges'" type="number" (blur)="stopEdit()"
             (change)="edit(estate, '_charges', editableChargesInput)" />
         </td>
-        <td nz-dropdown [nzDropdownMenu]="menuLodgers">{{estate.lodger?._name}}</td>
-        <td nz-dropdown [nzDropdownMenu]="menuActions">
+        <td nz-dropdown [nzDropdownMenu]="menuLodgers" class="clickable">{{estate.lodger?._name}}</td>
+        <td nz-dropdown [nzDropdownMenu]="menuActions" class="primary clickable">
           action
           <!-- <button nz-button nzType="primary" nzSize="small" (click)="editEstate(estate)">Edit</button>
                         <button nz-button nzType="danger" nzSize="small" (click)="deleteEstate(estate)">Delete</button> -->
@@ -66,7 +69,7 @@
         <nz-dropdown-menu #menuActions="nzDropdownMenu">
           <ul nz-menu nzSelectable>
             <li nz-menu-item (click)="createRentReceipt(estate)">créer une quittance</li>
-            <li nz-menu-item (click)="deleteEstate(estate)">supprimer</li>
+            <li nz-menu-item (click)="deleteEstate(estate)" class="error">supprimer</li>
           </ul>
         </nz-dropdown-menu>
 
@@ -76,7 +79,6 @@
     </tbody>
   </nz-table>
   }
-  <button nz-button nzType="default" (click)="createEstate()">Ajouter un bien</button>
 </div>
 }
 <create-estate-popup></create-estate-popup>

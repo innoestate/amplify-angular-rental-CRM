@@ -8,4 +8,5 @@ export interface Owner {
     _email?: string;
     _phone?: string;
     address?: string;
+    city?: string;
 }

@@ -1,13 +1,15 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { formatEstate } from "../../core/utils/estates.utils";
 import { State } from "./owners.reducers";
+import { formatObjectsAddress } from "../../core/utils/global.utils";
+import { Owner } from "../../core/models/owner.model";
 
 
 export const ownersSelector =  createFeatureSelector<State>('owners');
 
 export const selectOwners = createSelector(
     ownersSelector,
-    (state) => state.owners
+    (state) => (formatObjectsAddress(state.owners) as Owner[])
 )
 
 export const loadingOwners = createSelector(
