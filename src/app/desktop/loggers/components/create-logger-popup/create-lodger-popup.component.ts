@@ -1,12 +1,26 @@
 import { Component } from '@angular/core';
 import { createLodgerModalVisible } from '../../../../core/store/lodgers.selectors';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { CommonModule } from '@angular/common';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { CoreModule } from '../../../../core/core.module';
 
 @Component({
   selector: 'create-lodger-popup',
   templateUrl: './create-lodger-popup.component.html',
-  styleUrl: './create-lodger-popup.component.less'
+  styleUrl: './create-lodger-popup.component.less',
+  standalone: true,
+  imports: [
+    CommonModule,
+    NzInputModule,
+    ReactiveFormsModule,
+    NzButtonModule,
+    NzModalModule,
+    CoreModule
+  ]
 })
 export class CreateLodgerPopupComponent {
 

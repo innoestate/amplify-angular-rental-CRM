@@ -62,6 +62,19 @@ export class EstatesComponent implements OnInit {
     }
   }
 
+  createLodger(estate?: Estate) {
+    this.store.dispatch({ type: '[Lodgers] Toogle Create Lodger Modal', visible: true });
+    if (estate) {
+      this.actions$.pipe(
+        ofType('[Lodgers] Add Lodger Success'),
+        take(1),
+        tap(({ lodger }) => {
+          this.store.dispatch({ type: '[Lodgers] Update Lodger Estate', lodger: { id: (lodger as Lodger)?.id, _estate: estate?.id } });
+        })
+      ).subscribe();
+    }
+  }
+
   setLodger(estate: Estate | null, lodger: Lodger) {
     this.selectedEstate = estate;
     const newLodger = { ...lodger, _estate: estate?.id ? estate.id : null };

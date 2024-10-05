@@ -24,6 +24,7 @@ import { LodgersEffects } from '../../core/store/lodgers.effects';
 import { SetLodgerPopupComponent } from './components/set-lodger-popup/set-lodger-popup.component';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { CreateOwnerModalComponent } from '../owners/components/create-owner-modal/create-owner-modal.component';
+import { CreateLodgerPopupComponent } from '../loggers/components/create-logger-popup/create-lodger-popup.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CreateOwnerModalComponent } from '../owners/components/create-owner-mod
     NzDropDownModule,
     NzSelectModule,
     NzInputNumberModule,
-    CreateOwnerModalComponent
+    CreateOwnerModalComponent,
+    CreateLodgerPopupComponent
   ],
   exports: [
     CreateOwnerModalComponent

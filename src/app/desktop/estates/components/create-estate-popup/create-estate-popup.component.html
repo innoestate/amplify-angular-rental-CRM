@@ -1,24 +1,25 @@
-<nz-modal (nzVisible)="toogleVisible($event)"
-          [nzVisible]="visible$ | async"
-          [nzOkDisabled]="formGroup.invalid"
-          [nzCancelText]="'Annuler'"
-          [nzOkText]="'Créer'"
-          nzTitle="ajouter un nouveau bien"
-          (nzOnCancel)="handleCancel()"
-          (nzOnOk)="handleOk()">
+<nz-modal (nzVisible)="toogleVisible($event)" [nzVisible]="visible$ | async" [nzOkDisabled]="formGroup.invalid"
+  [nzCancelText]="'Annuler'" [nzOkText]="'Créer'" nzTitle="ajouter un nouveau bien" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
     <form [formGroup]="formGroup" class="create-modal-form-content">
-      <nz-select class="select" formControlName="_owner" nzPlaceHolder="'Propriétaire'" [nzStatus]="formGroup.get('_owner')?.valid? '':'warning'">
+      @if((owners$ | async)?.length){
+      <nz-select class="select" formControlName="_owner" nzPlaceHolder="'Propriétaire'"
+        [nzStatus]="formGroup.get('_owner')?.valid? '':'warning'">
         <ng-container *ngFor="let owner of owners$ | async">
           <nz-option [nzValue]="owner.id" [nzLabel]="owner._name"></nz-option>
         </ng-container>
       </nz-select>
-      <input formControlName="_street" nz-input [nzStatus]="formGroup.get('_street')?.valid? '':'warning'" _owner placeholder="Adresse (numéro et rue)"/>
-      <input formControlName="_zip" nz-input [nzStatus]="formGroup.get('_zip')?.valid? '':'warning'" _owner placeholder="Code Postal"/>
-      <input formControlName="_city" nz-input [nzStatus]="formGroup.get('_city')?.valid? '':'warning'" _owner placeholder="Ville (numéro et rue)"/>
-      <input formControlName="_parcel" type="number" nz-input placeholder="Lot"/>
-      <input formControlName="_rent" type="number" nz-input placeholder="Loyer (hors charges)"/>
-      <input formControlName="_charges" type="number" nz-input placeholder="charges"/>
+      }
+      <input formControlName="_street" nz-input [nzStatus]="formGroup.get('_street')?.valid? '':'warning'" _owner
+        placeholder="Adresse (numéro et rue)" />
+      <input formControlName="_zip" nz-input [nzStatus]="formGroup.get('_zip')?.valid? '':'warning'" _owner
+        placeholder="Code Postal" />
+      <input formControlName="_city" nz-input [nzStatus]="formGroup.get('_city')?.valid? '':'warning'" _owner
+        placeholder="Ville (numéro et rue)" />
+      <input formControlName="_parcel" type="number" nz-input placeholder="Lot" />
+      <input formControlName="_rent" type="number" nz-input placeholder="Loyer (hors charges)" />
+      <input formControlName="_charges" type="number" nz-input placeholder="charges" />
 
     </form>
   </ng-container>

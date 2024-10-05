@@ -4,6 +4,15 @@
 @layout-trigger-background: @white;
 @layout-header-background: @white;
 
+@secondary: @cyan-6;
+@secondary-2: @cyan-2;
+@secondary-3: @cyan-3;
+@secondary-4: @cyan-4;
+@secondary-5: @cyan-5;
+@secondary-6: @cyan-6;
+@secondary-7: @cyan-7;
+@secondary-8: @cyan-8;
+@secondary-9: @cyan-9;
 
 
 .table-container {
@@ -98,6 +107,29 @@
   font-weight: 500;
 }
 
+.empty {
+  color: @text-color-secondary;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.circle {
+  background-color: @primary-color;
+  color: @white;
+  border-radius: 20px;
+  width: 1rem;
+  height: 1rem;
+  text-align: center;
+  font-size: 0.67rem;
+  &.large{
+    border-radius: 20px;
+    width: 1.7rem;
+    height: 1.7rem;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+}
+
 button {
   display: flex;
   flex-flow: row nowrap;
@@ -128,8 +160,9 @@ button {
 }
 
 .empty-field {
-  background-color: @primary-2;
-  border: 1px solid @primary-5;
+  background-color: @secondary-2;
+  border: 1px solid @secondary-5;
+  color: @secondary-5;
   border-radius: 1rem;
   min-width: 2rem;
   width: 100%;
@@ -138,10 +171,27 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: @primary-5;
   &:hover{
-    background-color: @primary-5;
+    background-color: @secondary-5;
     color: @white;
+  }
+  &.create{
+    background-color: @primary-2;
+    border: 1px solid @primary-5;
+    color: @primary-5;
+    &:hover{
+      background-color: @primary-5;
+      color: @white;
+    }
+  }
+}
+
+.link{
+  cursor: pointer !important;
+  color: @primary-6 !important;
+  text-decoration: underline;
+  &:hover{
+    color: @primary-9;
   }
 }
 

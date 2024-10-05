@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignatureComponent } from './components/signature/signature.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 
@@ -9,10 +10,12 @@ import { SignatureComponent } from './components/signature/signature.component';
     SignatureComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NzIconModule
   ],
   exports: [
-    SignatureComponent
+    SignatureComponent,
+    NzIconModule
   ]
 })
 export class CoreModule { }

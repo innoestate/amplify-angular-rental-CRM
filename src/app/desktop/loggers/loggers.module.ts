@@ -18,7 +18,6 @@ import { LoggersComponent } from './loggers.component';
 @NgModule({
   declarations: [
     LoggersComponent,
-    CreateLodgerPopupComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +30,8 @@ import { LoggersComponent } from './loggers.component';
     NzButtonModule,
     NzModalModule,
     NzInputModule,
-    NzTableModule
+    NzTableModule,
+    CreateLodgerPopupComponent
   ]
 })
 export class LoggersModule { }
