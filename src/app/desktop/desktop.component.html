@@ -31,9 +31,8 @@
         </ng-template>
       </amplify-authenticator>
     </ng-container>
-    <router-outlet></router-outlet>
-
     <ng-container *ngIf="authenticator.user">
+      <router-outlet></router-outlet>
     </ng-container>
   </nz-content>
 
