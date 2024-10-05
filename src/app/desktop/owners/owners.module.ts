@@ -20,7 +20,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 @NgModule({
   declarations: [
     OwnersComponent,
-    CreateOwnerModalComponent
+    // CreateOwnerModalComponent
   ],
   imports: [
     CoreModule,
@@ -36,7 +36,8 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
     NzInputModule,
     NzTableModule,
     NzInputModule,
-    NzInputNumberModule
+    NzInputNumberModule,
+    CreateOwnerModalComponent
   ],
 })
 export class OwnersModule { }

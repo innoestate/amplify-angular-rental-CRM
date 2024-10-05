@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, map, Observable, take, tap } from 'rxjs';
 import { Estate } from '../../core/models/estate.model';
 import { selectOwners } from '../../core/store/owners.selectors';
 import { loadEstates } from './../../core/store/estates.actions';
@@ -11,6 +11,7 @@ import { selectLodgers } from '../../core/store/lodgers.selectors';
 import { formatEstates } from '../../core/utils/estates.utils';
 import { setLodgerDefaultAddress } from '../../core/utils/lodgers.utils';
 import { Owner } from '../../core/models/owner.model';
+import { Actions, ofType } from '@ngrx/effects';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class EstatesComponent implements OnInit {
   editId!: string | null;
   rent: any;
 
-  constructor(private store: Store, private EstateService: EstatesService) {
+  constructor(private store: Store, private actions$: Actions, private EstateService: EstatesService) {
 
     this.estates$ = combineLatest([this.store.select(selectEstates),
     this.store.select(selectOwners),
@@ -47,6 +48,20 @@ export class EstatesComponent implements OnInit {
     this.store.dispatch({ type: '[Estates] Toogle Create Estate Modal', visible: true });
   }
 
+  createOwner(estate?: Estate) {
+    this.store.dispatch({ type: '[Owners] Toogle Create Owner Modal', visible: true, estate });
+    if (estate) {
+      this.actions$.pipe(
+        ofType('[Owners] Add Owner Success'),
+        take(1),
+        tap(({ owner }) => {
+          console.log('owner created', owner);
+          this.store.dispatch({ type: '[Estates] Edit Estate', estate: { id: estate?.id, _owner: (owner as Owner)?.id } });
+        })
+      ).subscribe();
+    }
+  }
+
   setLodger(estate: Estate | null, lodger: Lodger) {
     this.selectedEstate = estate;
     const newLodger = { ...lodger, _estate: estate?.id ? estate.id : null };
@@ -55,7 +70,7 @@ export class EstatesComponent implements OnInit {
 
   setOwner(estate: Estate, owner: Owner | null) {
     this.selectedEstate = estate;
-    const newEstate = { id: estate.id, _owner: owner?.id ? owner.id : null  };
+    const newEstate = { id: estate.id, _owner: owner?.id ? owner.id : null };
     this.store.dispatch({ type: '[Estates] Edit Estate', estate: newEstate })
   }
 
@@ -63,7 +78,7 @@ export class EstatesComponent implements OnInit {
     this.selectedEstate = estate;
     const lodger = estate.lodger;
     if (lodger) {
-      this.store.dispatch({ type: '[Lodgers] Update Lodger Estate', lodger: {id: lodger.id, _estate: null} });
+      this.store.dispatch({ type: '[Lodgers] Update Lodger Estate', lodger: { id: lodger.id, _estate: null } });
     }
   }
 

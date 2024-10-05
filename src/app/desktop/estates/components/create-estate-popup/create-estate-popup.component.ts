@@ -14,7 +14,7 @@ export class CreateEstatePopupComponent {
   visible$ = this.store.select(createEstateModalVisible);
   owners$ = this.store.select(selectOwners);
   formGroup: FormGroup<any> = this.formBuilder.group({
-    _owner: ['', Validators.required],
+    _owner: [''],
     _street: ['', Validators.required],
     _city: ['', Validators.required],
     _zip: ['', Validators.required],

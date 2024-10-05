@@ -2,84 +2,109 @@
 <nz-spin nzSimple></nz-spin>
 }@else{
 <div class="table-container">
+  <div class="title">Liste de vos biens</div>
   <div class="table-header">
-    <button nz-button nzType="default" (click)="createEstate()">Ajouter un bien</button>
+    <button nz-button nzType="default" (click)="createEstate()">Ajouter un bien<div class="primary circle">{{(estates$ | async)?.length}}</div></button>
+    <button nz-button nzType="default" (click)="createOwner()">Ajouter un propriétaire<div class="primary circle">{{(owners$ | async)?.length}}</div></button>
   </div>
   @if(estates$ | async; as estates){
-  <nz-table #tables [nzData]="estates">
-    <thead>
-      <tr>
-        <th>propriétare</th>
-        <th>adresse</th>
-        <th>lot</th>
-        <th>loyer</th>
-        <th>charges</th>
-        <th>locataire</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let estate of tables.data">
-        <td nz-dropdown [nzDropdownMenu]="menuOwners" class="clickable">{{estate.owner?._name}}</td>
-        <td>{{estate.address}}</td>
+    @if(estates.length){
+      <nz-table #tables [nzData]="estates">
+        <thead>
+          <tr>
+            <th>propriétare</th>
+            <th>adresse</th>
+            <th>lot</th>
+            <th>loyer</th>
+            <th>charges</th>
+            <th>locataire</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estate of tables.data">
 
-        <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_parcel', editableParcelInput)">
-          <div [hidden]="editId === estate.id + '_parcel'">{{estate._parcel}}</div>
-          <input nz-demo-input-number-basic #editableParcelInput [value]="estate._parcel"
-            [hidden]="editId !== estate.id + '_parcel'" type="number" (blur)="stopEdit()"
-            (change)="edit(estate, '_parcel', editableParcelInput)" />
-        </td>
-        <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_rent', editableRentInput)">
-          <div [hidden]="editId === estate.id + '_rent'">{{estate._rent}}</div>
-          <input nz-demo-input-number-basic #editableRentInput [value]="estate._rent"
-            [hidden]="editId !== estate.id + '_rent'" type="number" (blur)="stopEdit()"
-            (change)="edit(estate, '_rent', editableRentInput)" />
-        </td>
-        <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_charges', editableChargesInput)">
-          <div [hidden]="editId === estate.id + '_charges'">{{estate._charges}}</div>
-          <input nz-demo-input-number-basic #editableChargesInput [value]="estate._charges"
-            [hidden]="editId !== estate.id + '_charges'" type="number" (blur)="stopEdit()"
-            (change)="edit(estate, '_charges', editableChargesInput)" />
-        </td>
-        <td nz-dropdown [nzDropdownMenu]="menuLodgers" class="clickable">{{estate.lodger?._name}}</td>
-        <td nz-dropdown [nzDropdownMenu]="menuActions" class="primary clickable">
-          action
-          <!-- <button nz-button nzType="primary" nzSize="small" (click)="editEstate(estate)">Edit</button>
-                        <button nz-button nzType="danger" nzSize="small" (click)="deleteEstate(estate)">Delete</button> -->
-        </td>
+            @if(estate._owner){
+              <td nz-dropdown [nzDropdownMenu]="menuOwners" class="clickable">{{estate.owner?._name}}</td>
+            }@else {
+              <td class="clickable rcc">
+                <div class="empty-field add-value" (click)="createOwner(estate)">+</div>
+              </td>
+            }
 
-        <nz-dropdown-menu #menuOwners="nzDropdownMenu">
-          <ul nz-menu nzSelectable>
-            <ng-container *ngFor="let owner of owners$ | async">
-              <li nz-menu-item (click)="setOwner(estate, owner)">{{owner._name}}</li>
-            </ng-container>
-            <li nz-menu-item (click)="setOwner(estate, null)">aucun</li>
-          </ul>
-        </nz-dropdown-menu>
+            <td>{{estate.address}}</td>
 
-        <nz-dropdown-menu #menuLodgers="nzDropdownMenu">
-          <ul nz-menu nzSelectable>
-            <ng-container *ngFor="let lodger of lodgers$ | async">
-              <li nz-menu-item (click)="setLodger(estate, lodger)">{{lodger._name}}</li>
-            </ng-container>
-            <li nz-menu-item (click)="removeLodger(estate)">vacant</li>
-          </ul>
-        </nz-dropdown-menu>
+            <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_parcel', editableParcelInput)">
+              <div [hidden]="editId === estate.id + '_parcel'">{{estate._parcel}}</div>
+              <input nz-demo-input-number-basic #editableParcelInput [value]="estate._parcel"
+                [hidden]="editId !== estate.id + '_parcel'" type="number" (blur)="stopEdit()"
+                (change)="edit(estate, '_parcel', editableParcelInput)" />
+            </td>
+            <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_rent', editableRentInput)">
+              <div [hidden]="editId === estate.id + '_rent'">{{estate._rent}}</div>
+              <input nz-demo-input-number-basic #editableRentInput [value]="estate._rent"
+                [hidden]="editId !== estate.id + '_rent'" type="number" (blur)="stopEdit()"
+                (change)="edit(estate, '_rent', editableRentInput)" />
+            </td>
+            <td class="editable-cell-number clickable" (click)="startEdit(estate.id! + '_charges', editableChargesInput)">
+              <div [hidden]="editId === estate.id + '_charges'">{{estate._charges}}</div>
+              <input nz-demo-input-number-basic #editableChargesInput [value]="estate._charges"
+                [hidden]="editId !== estate.id + '_charges'" type="number" (blur)="stopEdit()"
+                (change)="edit(estate, '_charges', editableChargesInput)" />
+            </td>
+            <td nz-dropdown [nzDropdownMenu]="menuLodgers" class="clickable">{{estate.lodger?._name}}</td>
+            <td nz-dropdown [nzDropdownMenu]="menuActions" class="primary clickable">
+              action
+              <!-- <button nz-button nzType="primary" nzSize="small" (click)="editEstate(estate)">Edit</button>
+                            <button nz-button nzType="danger" nzSize="small" (click)="deleteEstate(estate)">Delete</button> -->
+            </td>
 
-        <nz-dropdown-menu #menuActions="nzDropdownMenu">
-          <ul nz-menu nzSelectable>
-            <li nz-menu-item (click)="createRentReceipt(estate)">créer une quittance</li>
-            <li nz-menu-item (click)="deleteEstate(estate)" class="error">supprimer</li>
-          </ul>
-        </nz-dropdown-menu>
+            <nz-dropdown-menu #menuOwners="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <ng-container *ngFor="let owner of owners$ | async">
+                  <li nz-menu-item (click)="setOwner(estate, owner)">{{owner._name}}</li>
+                </ng-container>
+                @if(owners$ |async; as owners){
+                  @if(owners.length){
+                    <li nz-menu-item (click)="setOwner(estate, null)">aucun</li>
+                  }@else{
+                    <li nz-menu-item (click)="createOwner()" class="primary">ajouter un propriétaire</li>
+                  }
+                }
+              </ul>
+            </nz-dropdown-menu>
+
+            <nz-dropdown-menu #menuLodgers="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <ng-container *ngFor="let lodger of lodgers$ | async">
+                  <li nz-menu-item (click)="setLodger(estate, lodger)">{{lodger._name}}</li>
+                </ng-container>
+                <li nz-menu-item (click)="removeLodger(estate)">vacant</li>
+              </ul>
+            </nz-dropdown-menu>
+
+            <nz-dropdown-menu #menuActions="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item (click)="createRentReceipt(estate)">créer une quittance</li>
+                <li nz-menu-item (click)="deleteEstate(estate)" class="error">supprimer</li>
+              </ul>
+            </nz-dropdown-menu>
 
 
 
-      </tr>
-    </tbody>
-  </nz-table>
+          </tr>
+        </tbody>
+      </nz-table>
+    }@else{
+      <div class="empty-table">
+        <div class="title">Vous n'avez pas encore de biens</div>
+        <div class="subtitle">cliquez sur ajouter un bien</div>
+      </div>
+    }
+
   }
 </div>
 }
 <create-estate-popup></create-estate-popup>
+<create-owner-modal></create-owner-modal>
 <set-lodger-popup></set-lodger-popup>
