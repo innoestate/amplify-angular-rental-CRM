@@ -8,4 +8,5 @@ export interface Lodger {
     _phone?: string;
     _estate?: string;
     address?: string;
+    city?: string;
 }

@@ -13,6 +13,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateLodgerPopupComponent } from './components/create-logger-popup/create-lodger-popup.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CreateLodgerPopupComponent } from './components/create-logger-popup/cre
     NzSpinModule,
     NzButtonModule,
     NzModalModule,
-    NzInputModule
+    NzInputModule,
+    NzTableModule
   ]
 })
 export class LoggersModule { }

@@ -8,7 +8,7 @@ import { createOwnerModalVisible } from '../../store/owners.selectors';
   templateUrl: './create-owner-modal.component.html',
   styleUrl: './create-owner-modal.component.less'
 })
-export class CreateOwnerModalComponent implements AfterViewInit {
+export class CreateOwnerModalComponent {
 
   visible$ = this.store.select(createOwnerModalVisible);
   formGroup: FormGroup<any> = this.formBuilder.group({
@@ -22,10 +22,6 @@ export class CreateOwnerModalComponent implements AfterViewInit {
   });
 
   constructor(private store: Store, private formBuilder: FormBuilder){}
-
-  ngAfterViewInit(): void {
-    this.formGroup.valueChanges.subscribe(console.log);
-  }
 
   toogleVisible(event: any){
     this.store.dispatch({ type: '[Owners] Toogle Create Owner Modal', visible: false });

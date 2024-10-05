@@ -1,15 +1,18 @@
 <nz-modal (nzVisible)="toogleVisible($event)"
           [nzVisible]="visible$ | async"
           [nzOkDisabled]="formGroup.invalid"
+          [nzCancelText]="'Annuler'"
+          [nzOkText]="'Créer'"
           nzTitle="Créer un nouveau propriétaire"
           (nzOnCancel)="handleCancel()"
           (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
     <form [formGroup]="formGroup" class="create-modal-form-content">
-      <input formControlName="_name" nz-input placeholder="Prénom et Nom"/>
-      <input formControlName="_street" nz-input placeholder="Adresse (numéro et rue)"/>
-      <input formControlName="_city" nz-input placeholder="Ville"/>
-      <input formControlName="_zip" nz-input placeholder="Code Postal"/>
+      <input formControlName="_name" nz-input [nzStatus]="formGroup.get('_name')?.valid? '':'warning'" placeholder="Prénom et Nom"/>
+      <input formControlName="_street" nz-input [nzStatus]="formGroup.get('_street')?.valid? '':'warning'" placeholder="Adresse (numéro et rue)"/>
+      <input formControlName="_zip" nz-input [nzStatus]="formGroup.get('_zip')?.valid? '':'warning'" placeholder="Code Postal"/>
+      <input formControlName="_city" nz-input [nzStatus]="formGroup.get('_city')?.valid? '':'warning'"  placeholder="Ville"/>
+      signature:
       <app-signature formControlName="_signature"></app-signature>
     </form>
   </ng-container>

@@ -1,29 +1,29 @@
 <create-owner-modal></create-owner-modal>
 @if(loading$ | async){
-  <nz-spin nzSimple></nz-spin>
-  }@else{
-  <div class="table-container">
-    <div class="table-header">
-      <button nz-button nzType="default" (click)="createOwner()">Ajouter un propriétaire</button>
-    </div>
-
-    @if(owners$ | async; as owners){
-    <nz-table #tables [nzData]="owners" [nzPageSize]="7">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>adresse</th>
-          <th style="width: 30px">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let owner of tables.data">
-          <td>{{owner._name}}</td>
-          <td>{{owner.address}}</td>
-          <td class="error clickable" (click)="deleteOwner(owner)">supprimer</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    }
+<nz-spin nzSimple></nz-spin>
+}@else{
+<div class="table-container">
+  <div class="table-header">
+    <button nz-button nzType="default" (click)="createOwner()">Ajouter un propriétaire</button>
   </div>
+
+  @if(owners$ | async; as owners){
+  <nz-table #tables [nzData]="owners" [nzPageSize]="7">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>adresse</th>
+        <th style="width: 30px">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let owner of tables.data">
+        <td>{{owner._name}}</td>
+        <td>{{owner.address}}</td>
+        <td class="error clickable" (click)="deleteOwner(owner)">supprimer</td>
+      </tr>
+    </tbody>
+  </nz-table>
   }
+</div>
+}
