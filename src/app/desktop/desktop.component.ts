@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Amplify } from 'aws-amplify';
-import outputs from '../../amplify_outputs.json';
-import { generateClient } from 'aws-amplify/data';
-import { Schema } from '../../amplify/data/resource';
+import outputs from '../../../amplify_outputs.json';
 
 
 Amplify.configure(outputs);
-const client = generateClient<Schema>();
 
 @Component({
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>'
+  selector: 'desktop',
+  templateUrl: './desktop.component.html',
+  styleUrl: './desktop.component.less',
 })
-export class AppComponent implements OnInit{
+export class DesktopComponent implements OnInit{
 
   title = 'amplify-angular-template';
 
