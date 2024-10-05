@@ -30,12 +30,6 @@ export class LodgersService {
     )
   }
 
-  updateLodger(lodger: Lodger, lodgers: Lodger[]): Observable<any> {
-
-    return this.updateLodgers([lodger]);
-
-  }
-
   updateLodgers(lodgers: Lodger[]): Observable<any> {
 
     const updateManyLodgers = async (lodgers: Partial<Lodger>[]) => {
@@ -46,7 +40,6 @@ export class LodgersService {
           const newLodger = {id: lodger.id, _estate: lodger._estate};
           return client.models.Lodger.update(newLodger as any);
         });
-
         updatedLodgers = (await Promise.all(promises)).map(result => result?.data);
       } catch (error) {
         console.error('Error updating lodgers:', error);

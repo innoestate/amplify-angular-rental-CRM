@@ -13,6 +13,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { CreateOwnerModalComponent } from './components/create-owner-modal/create-owner-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CreateOwnerModalComponent
   ],
   imports: [
+    CoreModule,
     CommonModule,
     OwnersRoutingModule,
     StoreModule.forFeature('owners', ownersReducer),
@@ -30,6 +32,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzButtonModule,
     NzModalModule,
     NzInputModule
-  ]
+  ],
 })
 export class OwnersModule { }

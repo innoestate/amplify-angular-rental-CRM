@@ -1,3 +1,4 @@
+import { CoreModule } from '../core/core.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EstatesComponent } from './estates.component';
@@ -21,6 +22,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { LodgersReducer } from '../loggers/store/lodgers.reducers';
 import { LodgersEffects } from '../loggers/store/lodgers.effects';
 import { SetLodgerPopupComponent } from './components/set-lodger-popup/set-lodger-popup.component';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { SetLodgerPopupComponent } from './components/set-lodger-popup/set-lodge
     SetLodgerPopupComponent
   ],
   imports: [
+    CoreModule,
     CommonModule,
     EstatesRoutingModule,
     ReactiveFormsModule,
@@ -45,7 +48,8 @@ import { SetLodgerPopupComponent } from './components/set-lodger-popup/set-lodge
     NzModalModule,
     NzInputModule,
     NzDropDownModule,
-    NzSelectModule
+    NzSelectModule,
+    NzInputNumberModule
   ],
 })
 export class EstatesModule { }

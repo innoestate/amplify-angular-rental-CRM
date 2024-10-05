@@ -9,6 +9,8 @@ import { EstatesService } from '../core/services/estates.service';
 import { Lodger } from '../core/models/lodger.model';
 import { selectLodgers } from '../loggers/store/lodgers.selectors';
 import { formatEstates } from '../core/utils/estates.utils';
+import { setLodgerDefaultAddress } from '../core/utils/lodgers.utils';
+import { Owner } from '../core/models/owner.model';
 
 
 @Component({
@@ -23,12 +25,14 @@ export class EstatesComponent implements OnInit {
   owners$: Observable<any> = this.store.select(selectOwners);
   lodgers$: Observable<any> = this.store.select(selectLodgers);
   selectedEstate: Estate | null = null;
+  editId!: string | null;
+  rent: any;
 
   constructor(private store: Store, private EstateService: EstatesService) {
 
     this.estates$ = combineLatest([this.store.select(selectEstates),
-                                   this.store.select(selectOwners),
-                                   this.store.select(selectLodgers)]).pipe(
+    this.store.select(selectOwners),
+    this.store.select(selectLodgers)]).pipe(
       map(([estates, owners, lodgers]) => formatEstates(estates, owners, lodgers))
     );
 
@@ -43,32 +47,51 @@ export class EstatesComponent implements OnInit {
     this.store.dispatch({ type: '[Estates] Toogle Create Estate Modal', visible: true });
   }
 
-  setLodger(estate: Estate, lodger: Lodger) {
+  setLodger(estate: Estate | null, lodger: Lodger) {
     this.selectedEstate = estate;
-    const newLodger = { ...lodger, _estate: estate.id };
+    const newLodger = { ...lodger, _estate: estate?.id ? estate.id : null };
     this.store.dispatch({ type: '[Lodgers] Update Lodger Estate', lodger: newLodger });
   }
 
+  setOwner(estate: Estate, owner: Owner | null) {
+    this.selectedEstate = estate;
+    const newEstate = { id: estate.id, _owner: owner?.id ? owner.id : null  };
+    this.store.dispatch({ type: '[Estates] Edit Estate', estate: newEstate })
+  }
+
+  removeLodger(estate: Estate) {
+    this.selectedEstate = estate;
+    const lodger = estate.lodger;
+    if (lodger) {
+      this.store.dispatch({ type: '[Lodgers] Update Lodger Estate', lodger: {id: lodger.id, _estate: null} });
+    }
+  }
+
   createRentReceipt(estate: Estate) {
-
-    const owner = {
-      _name: 'jean dupont',
-      _street: 'rue de la paix',
-      _city: 'paris',
-      _zip: '75000'
-    }
-    const lodger = {
-      _name: 'pierre dupont',
-      _street: 'rue de la paix',
-      _city: 'paris',
-      _zip: '75000'
-    }
-
-    this.EstateService.generateRentreceiptAsPdf(owner, lodger, estate);
+    this.EstateService.generateRentreceiptAsPdf(estate.owner!, setLodgerDefaultAddress(estate.lodger!, estate), estate);
   }
 
   deleteEstate(estate: Estate) {
     this.store.dispatch({ type: '[Estates] Delete Estate', estate });
+  }
+
+  startEdit(id: string, ref: HTMLInputElement) {
+    this.editId = id;
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        ref.focus();
+      })
+    }, 0);
+  }
+
+  stopEdit() {
+    this.editId = null;
+  }
+
+  edit(estate: Estate, fieldName: string, ref: HTMLInputElement) {
+    const editableEstate: any = { id: estate.id };
+    editableEstate[fieldName] = ref.value;
+    this.store.dispatch({ type: '[Estates] Edit Estate', estate: editableEstate })
   }
 
 }

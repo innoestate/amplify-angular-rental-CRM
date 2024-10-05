@@ -47,7 +47,8 @@ export class EstatesService {
       .set('lodgerCity', lodger._zip + ' ' + lodger._city)
       .set('address', estate.address ?? '')
       .set('rent', estate._rent)
-      .set('charges', estate._charges);
+      .set('charges', estate._charges)
+      .set('signature', owner._signature??'');
 
     // Set headers
     const headers = new HttpHeaders({
@@ -82,6 +83,17 @@ export class EstatesService {
 
   createEstate(estate: Estate): Observable<any> {
     return from(client.models.Estate.create(estate as any)).pipe(
+      map(result => {
+        if ((result as any)['errors']) {
+          throw new Error('unknow error');
+        }
+        return { ...estate, ...(result.data as any), _owner: estate._owner };
+      })
+    )
+  }
+
+  editEstate(estate: Estate): Observable<any> {
+    return from(client.models.Estate.update(estate as any)).pipe(
       map(result => {
         if ((result as any)['errors']) {
           throw new Error('unknow error');

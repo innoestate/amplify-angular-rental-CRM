@@ -1,14 +1,14 @@
-import { Component, Input, input } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { createOwnerModalVisible } from '../../store/owners.selectors';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'create-owner-modal',
   templateUrl: './create-owner-modal.component.html',
   styleUrl: './create-owner-modal.component.less'
 })
-export class CreateOwnerModalComponent {
+export class CreateOwnerModalComponent implements AfterViewInit {
 
   visible$ = this.store.select(createOwnerModalVisible);
   formGroup: FormGroup<any> = this.formBuilder.group({
@@ -17,10 +17,15 @@ export class CreateOwnerModalComponent {
     _city: ['', Validators.required],
     _zip: ['', Validators.required],
     _email: [''],
-    _phone: ['']
+    _phone: [''],
+    _signature: ['']
   });
 
   constructor(private store: Store, private formBuilder: FormBuilder){}
+
+  ngAfterViewInit(): void {
+    this.formGroup.valueChanges.subscribe(console.log);
+  }
 
   toogleVisible(event: any){
     this.store.dispatch({ type: '[Owners] Toogle Create Owner Modal', visible: false });

@@ -13,6 +13,10 @@ export const deleteEstate = createAction('[Estates] Delete Estate');
 export const deleteEstateSuccess = createAction('[Estates] Delete Estate Success', props<{ estate: Estate }>());
 export const deleteEstateFailure = createAction('[Estates] Delete Estate Failure', props<{ error: any }>());
 
+export const editEstate = createAction('[Estates] Edit Estate', props<{ estate: Estate }>());
+export const editEstateSuccess = createAction('[Estates] Edit Estate Success', props<{ estate: Estate }>());
+export const editEstateFailure = createAction('[Estates] Edit Estate Failure', props<{ error: any }>());
+
 export const toogleCreateEstateModal = createAction('[Estates] Toogle Create Estate Modal', props<{ visible: boolean }>());
 export const toogleCreateEstateModalSuccess = createAction('[Estates] Toogle Create Estate Modal Success', props<{ visible: boolean }>());
 export const toogleCreateEstateModalFailure = createAction('[Estates] Toogle Create Estate Modal Failure', props<{ error: any }>());

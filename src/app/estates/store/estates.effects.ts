@@ -59,4 +59,12 @@ export class EstatesEffects {
     ))
   ))
 
+  editEstate$ = createEffect(() => this.actions$.pipe(
+    ofType('[Estates] Edit Estate'),
+    switchMap(({ estate }) => this.estatesService.editEstate(estate).pipe(
+      map(() => ({ type: '[Estates] Edit Estate Success', estate })),
+      catchError(() => of({ type: '[Estates] Edit Estate Failure' }))
+    ))
+  ))
+
 }

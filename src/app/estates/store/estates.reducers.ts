@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Estate } from "../../core/models/estate.model";
-import { createEstate, createEstateFailure, createEstateSuccess, deleteEstateSuccess, loadEstates, loadEstatesFailure, loadEstatesSuccess, toogleCreateEstateModalSuccess, toogleSetLodgerModalSuccess } from "./estates.actions";
+import { createEstate, createEstateFailure, createEstateSuccess, deleteEstateSuccess, editEstateSuccess, loadEstates, loadEstatesFailure, loadEstatesSuccess, toogleCreateEstateModalSuccess, toogleSetLodgerModalSuccess } from "./estates.actions";
 
 export interface State {
   estates: Estate[];
@@ -73,6 +73,12 @@ export const estatesReducer = createReducer(
     return {
       ...state,
       setLodgerModalVisible: data.visible
+    }
+  }),
+  on(editEstateSuccess, (state, data) => {
+    return {
+      ...state,
+      estates: state.estates.map(estate => estate.id === data.estate.id ? ({...estate, ...data.estate}) : estate)
     }
   })
 )

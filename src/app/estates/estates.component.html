@@ -17,11 +17,21 @@
     </thead>
     <tbody>
       <tr *ngFor="let estate of tables.data">
-        <td>{{estate.owner?._name}}</td>
+        <td  nz-dropdown [nzDropdownMenu]="menuOwners">{{estate.owner?._name}}</td>
         <td>{{estate.address}}</td>
-        <td>{{estate._parcel}}</td>
-        <td>{{estate._rent}}</td>
-        <td>{{estate._charges}}</td>
+
+        <td class="editable-cell-number" (click)="startEdit(estate.id! + '_parcel', editableParcelInput)">
+          <div [hidden]="editId === estate.id + '_parcel'" >{{estate._parcel}}</div>
+          <input nz-demo-input-number-basic #editableParcelInput [value]="estate._parcel" [hidden]="editId !== estate.id + '_parcel'" type="number" (blur)="stopEdit()" (change)="edit(estate, '_parcel', editableParcelInput)"/>
+        </td>
+        <td class="editable-cell-number" (click)="startEdit(estate.id! + '_rent', editableRentInput)">
+          <div [hidden]="editId === estate.id + '_rent'">{{estate._rent}}</div>
+          <input nz-demo-input-number-basic #editableRentInput [value]="estate._rent" [hidden]="editId !== estate.id + '_rent'" type="number" (blur)="stopEdit()" (change)="edit(estate, '_rent', editableRentInput)"/>
+        </td>
+        <td class="editable-cell-number" (click)="startEdit(estate.id! + '_charges', editableChargesInput)">
+          <div [hidden]="editId === estate.id + '_charges'">{{estate._charges}}</div>
+          <input nz-demo-input-number-basic #editableChargesInput [value]="estate._charges" [hidden]="editId !== estate.id + '_charges'" type="number" (blur)="stopEdit()" (change)="edit(estate, '_charges', editableChargesInput)"/>
+        </td>
         <td nz-dropdown [nzDropdownMenu]="menuLodgers">{{estate.lodger?._name}}</td>
         <td nz-dropdown [nzDropdownMenu]="menuActions">
           action
@@ -29,11 +39,21 @@
                         <button nz-button nzType="danger" nzSize="small" (click)="deleteEstate(estate)">Delete</button> -->
         </td>
 
+        <nz-dropdown-menu #menuOwners="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <ng-container *ngFor="let owner of owners$ | async">
+              <li nz-menu-item (click)="setOwner(estate, owner)">{{owner._name}}</li>
+            </ng-container>
+            <li nz-menu-item (click)="setOwner(estate, null)">aucun</li>
+          </ul>
+        </nz-dropdown-menu>
+
         <nz-dropdown-menu #menuLodgers="nzDropdownMenu">
           <ul nz-menu nzSelectable>
             <ng-container *ngFor="let lodger of lodgers$ | async">
               <li nz-menu-item (click)="setLodger(estate, lodger)">{{lodger._name}}</li>
             </ng-container>
+            <li nz-menu-item (click)="removeLodger(estate)">vacant</li>
           </ul>
         </nz-dropdown-menu>
 

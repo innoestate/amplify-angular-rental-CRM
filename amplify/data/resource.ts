@@ -18,6 +18,7 @@ const schema = a.schema({
     _street: a.string(),
     _city: a.string(),
     _zip: a.string(),
+    _signature: a.string(),
     _email: a.string(),
     _phone: a.string()
   }).authorization((allow) => [allow.owner()]),
