@@ -1,15 +1,16 @@
 @import (multiple) '../../../node_modules/ng-zorro-antd/src/style/themes/dark';
+@import './default.less';
+// @import './dark.less';
 
-
-.themeMixin(@rules) {
-  html {
-    &.default {
-      @import './default.less';
-      @rules();
-    }
-    &.dark {
-      @import './dark.less';
-      @rules();
-    }
-  }
-}
+// .themeMixin(@rules) {
+//   html {
+//     &.default {
+//       @import './default.less';
+//       @rules();
+//     }
+//     &.dark {
+//       @import './dark.less';
+//       @rules();
+//     }
+//   }
+// }
