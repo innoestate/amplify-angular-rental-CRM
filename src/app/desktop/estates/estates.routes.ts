@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EstatesComponent } from './estates.component';
+import { DesktopEstatesComponent } from './estates.component';
 
 export const routes: Routes = [
   { path: '',
-    component: EstatesComponent
+    component: DesktopEstatesComponent
   },
   // { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.routes').then(m => m.WELCOME_ROUTES) }
 ];

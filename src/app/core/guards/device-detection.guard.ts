@@ -10,15 +10,19 @@ export class DeviceGuard  {
   constructor(private router: Router) {}
 
   canMatch(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const deviceIsMobile = this.isMobile() || this.isTablet();
 
-    console.log('deviceIsMobile', deviceIsMobile);
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1024px)').matches;
 
-    if (deviceIsMobile && route.path === 'desktop') {
+    // const deviceIsMobile = this.isMobile() || this.isTablet();
+
+    // console.log('deviceIsMobile', deviceIsMobile);
+
+    if (isMobile && route.path === 'desktop') {
       this.router.navigate(['mobile']);
       return false;
     }
-    if (!deviceIsMobile && route.path === 'mobile') {
+    if (!isMobile && route.path === 'mobile') {
       this.router.navigate(['desktop']);
       return false;
     }
@@ -27,19 +31,19 @@ export class DeviceGuard  {
   }
 
 
-  isMobile(): boolean {
-    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+  // isMobile(): boolean {
+  //   const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
 
-    // Check if the device is Android or iOS
-    return /android|iPad|iPhone|iPod/i.test(userAgent);
-  }
+  //   // Check if the device is Android or iOS
+  //   return /android|iPad|iPhone|iPod/i.test(userAgent);
+  // }
 
-  isTablet(): boolean {
-    const userAgent = navigator.userAgent.toLowerCase();
-    return /tablet|ipad|playbook|silk/i.test(userAgent);
-  }
+  // isTablet(): boolean {
+  //   const userAgent = navigator.userAgent.toLowerCase();
+  //   return /tablet|ipad|playbook|silk/i.test(userAgent);
+  // }
 
-  isDesktop(): boolean {
-    return !this.isMobile() && !this.isTablet();
-  }
+  // isDesktop(): boolean {
+  //   return !this.isMobile() && !this.isTablet();
+  // }
 }

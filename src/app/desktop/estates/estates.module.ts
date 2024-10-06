@@ -1,7 +1,7 @@
 import { CoreModule } from '../../core/core.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EstatesComponent } from './estates.component';
+import { DesktopEstatesComponent } from './estates.component';
 import { EstatesRoutingModule } from './estates.routes';
 import { StoreModule } from '@ngrx/store';
 import { estatesReducer } from './../../core/store/estates.reducers';
@@ -28,7 +28,7 @@ import { CreateLodgerPopupComponent } from '../loggers/components/create-logger-
 
 @NgModule({
   declarations: [
-    EstatesComponent,
+    DesktopEstatesComponent,
     CreateEstatePopupComponent,
     SetLodgerPopupComponent
   ],
