@@ -10,6 +10,7 @@ import { CoreModule } from '../core/core.module';
 import { extModules } from './../build-specifics';
 import { MobileRoutingModule } from './mobile.routes';
 import { MobileComponent } from './mobile.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,9 @@ import { MobileComponent } from './mobile.component';
     HttpClientModule,
     NzPageHeaderModule,
     NzLayoutModule,
-    NzMenuModule,
+    NzDropDownModule,
     AmplifyAuthenticatorModule,
-    extModules
+    extModules,
   ],
   exports: [
     NzLayoutModule,

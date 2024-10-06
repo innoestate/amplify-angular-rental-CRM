@@ -1,9 +1,11 @@
-@import "../../styles/themes/mixin";
+@import "../../styles/themes/mixin-mobile";
+
 
 :host{
   width: 100vw;
   height: 100vh;
 }
+
 
 .layout{
   // width: 100vw;
@@ -13,6 +15,14 @@
   flex-flow: column nowrap;
 
   .header{
+
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    color: @white;
+
     .logo img {
       /* margin: auto !important; */
       width: 95px;
@@ -21,8 +31,8 @@
     }
     .header-menu {
       line-height: 60px;
+      width: 100%;
       float: left;
-      flex: 1;
     }
     .header-login{
       line-height: 60px;
