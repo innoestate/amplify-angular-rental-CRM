@@ -53,7 +53,8 @@ import { CreateLodgerPopupComponent } from '../loggers/components/create-logger-
     NzSelectModule,
     NzInputNumberModule,
     CreateOwnerModalComponent,
-    CreateLodgerPopupComponent
+    CreateLodgerPopupComponent,
+    ReactiveFormsModule,
   ],
   exports: [
     CreateOwnerModalComponent

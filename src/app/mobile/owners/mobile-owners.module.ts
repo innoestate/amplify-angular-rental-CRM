@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MobileOwnersComponent } from './mobile-owners.component';
 import { MobileOwnersRoutingModule } from './mobile-owners.routes';
 
-
-
 @NgModule({
   declarations: [
     MobileOwnersComponent
