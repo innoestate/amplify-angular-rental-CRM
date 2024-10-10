@@ -12,6 +12,7 @@ import { formatEstates } from '../../core/utils/estates.utils';
 import { setLodgerDefaultAddress } from '../../core/utils/lodgers.utils';
 import { Owner } from '../../core/models/owner.model';
 import { Actions, ofType } from '@ngrx/effects';
+import { fetchGoogleAccessToken, sendEmailWithGmail } from '../../desktop/desktop.component';
 
 
 @Directive()
@@ -45,6 +46,12 @@ export class EstatesComponent implements OnInit {
   }
 
   createOwner(estate?: Estate) {
+
+    console.log(fetchGoogleAccessToken());
+
+    const token = fetchGoogleAccessToken();
+    sendEmailWithGmail(token!, 'innoestateholdings@gmail.com', 'mathieucolla@gmail.com');
+
     this.store.dispatch({ type: '[Owners] Toogle Create Owner Modal', visible: true, estate });
     if (estate) {
       this.actions$.pipe(

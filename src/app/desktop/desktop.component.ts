@@ -5,10 +5,11 @@ import outputs from '../../../amplify_outputs.json';
 import axios from 'axios';
 
 // Fonction pour envoyer un email avec Gmail
-async function sendEmailWithGmail(token: string, fromEmail: string, toEmail: string) {
+export async function sendEmailWithGmail(token: string, fromEmail: string, toEmail: string) {
+
     const emailContent = `
-        From: ${fromEmail}
-        To: ${toEmail}
+        From: Innoesate <${fromEmail}>
+        To: Math <${toEmail}>
         Subject: Bonjour
         Content-Type: text/plain; charset="UTF-8"
 
@@ -41,7 +42,7 @@ async function sendEmailWithGmail(token: string, fromEmail: string, toEmail: str
     }
 }
 
-function fetchGoogleAccessToken(): string | null {
+export function fetchGoogleAccessToken(): string | null {
   // Loop through all the keys in localStorage
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
@@ -72,11 +73,6 @@ export class DesktopComponent implements OnInit{
   }
 
   ngOnInit() {
-
-    console.log(fetchGoogleAccessToken());
-
-    const token = fetchGoogleAccessToken();
-    sendEmailWithGmail(token!, 'innoestateholdings@gmail.com', 'mathieucolla@gmail.com');
 
     // Si l'état change, vous pouvez l'écouter comme suit :
     this.authenticator.subscribe(currentSession => {
