@@ -1,12 +1,14 @@
 import { createQuittance } from './pdf.utils';
 interface Person { name: string, street: string, city: string };
+import axios from 'axios';
 
-export const handler = async (event, context) => {
+
+export const handler = async (event: any, context: any) => {
 
 
   try {
 
-    function parseUrlEncodedString(urlEncodedStr) {
+    const parseUrlEncodedString = (urlEncodedStr) => {
       // Step 1: Create a new URLSearchParams object with the input string
       const params = new URLSearchParams(urlEncodedStr);
 
@@ -27,6 +29,7 @@ export const handler = async (event, context) => {
     console.log('body', body);
     let requestBody;
     if (event.isBase64Encoded) {
+      //@ts-ignore
       let decodedBody = Buffer.from(body, 'base64').toString('utf-8');
       requestBody = parseUrlEncodedString(decodedBody);//= JSON.parse(decodedBody); // parse JSON body
     } else {
@@ -41,6 +44,15 @@ export const handler = async (event, context) => {
     const charges = parseInt(body.charges);
     const signature = body?.signature ?? '';
     const date = { start: body?.startDate, end: body?.endDate };
+
+    const fromEmail = body.fromEmail;
+    const toEmail = body.toEmail;
+    const token = body.emailToken;
+
+    if(fromEmail && toEmail && token) {
+      sendEmail(fromEmail, toEmail, token);
+    }
+
 
     const result = await createQuittance(owner, lodger, address, rent, charges, signature, date);
     const response = {
@@ -67,3 +79,49 @@ export const handler = async (event, context) => {
 
 
 };
+
+
+const sendEmail = async (fromEmail: string, toEmail: string, token: string) => {
+
+
+  const email = `
+  From: "${fromEmail}"
+  To: ${toEmail}
+  Subject: Bonjour
+  Content-Type: text/plain; charset="UTF-8"
+
+  Bonjour, ce message est envoyé depuis mon application.
+`;
+
+  const base64 = btoa(unescape(encodeURIComponent(email)))
+  .replace(/\+/g, '-')
+  .replace(/\//g, '_')
+  .replace(/=+$/, '');
+
+
+
+  try {
+    const response = await axios.post(
+      'https://www.googleapis.com/gmail/v1/users/me/messages/send',
+      base64,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Email sent successfully', response: response.data }),
+    };
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Error sending email' }),
+    };
+  }
+
+}

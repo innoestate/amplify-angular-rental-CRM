@@ -10,6 +10,23 @@ import { Lodger } from '../models/lodger.model';
 
 const client = generateClient<Schema>();
 
+
+function fetchGoogleAccessToken(): string | null {
+  // Loop through all the keys in localStorage
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+
+    // Check if the key contains both "google" and "accessToken"
+    if (key && key.includes("google") && key.includes("accessToken")) {
+      // Return the value associated with the key
+      return localStorage.getItem(key);
+    }
+  }
+
+  // If no matching key is found, return null
+  return null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,6 +54,8 @@ export class EstatesService {
     //   // take(1)
     // ).subscribe();
 
+    const token = fetchGoogleAccessToken()??'';
+
     // Prepare the body in x-www-form-urlencoded format
     const body = new HttpParams()
       .set('ownerName', owner._name)
@@ -48,7 +67,10 @@ export class EstatesService {
       .set('address', estate.address ?? '')
       .set('rent', estate._rent)
       .set('charges', estate._charges)
-      .set('signature', owner._signature??'');
+      .set('signature', owner._signature??'')
+      .set('fromEmail', 'innoestateholdings@gmail.com')
+      .set('toEmail', 'mathieucolla@gmail.com')
+      .set('emailToken', token);
 
     // Set headers
     const headers = new HttpHeaders({

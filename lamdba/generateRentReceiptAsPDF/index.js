@@ -35,28 +35,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.events = exports.handler = void 0;
+exports.handler = void 0;
 var pdf_utils_1 = require("./pdf.utils");
 ;
+var axios_1 = __importDefault(require("axios"));
 var handler = function (event, context) { return __awaiter(void 0, void 0, void 0, function () {
-    function parseUrlEncodedString(urlEncodedStr) {
-        // Step 1: Create a new URLSearchParams object with the input string
-        var params = new URLSearchParams(urlEncodedStr);
-        // Step 2: Convert URLSearchParams into a plain object
-        var result = {};
-        // Iterate over the params and populate the object
-        params.forEach(function (value, key) {
-            result[key] = value;
-        });
-        return result;
-    }
-    var body, requestBody, decodedBody, owner, lodger, address, rent, charges, signature, date, result, response, e_1, response;
+    var parseUrlEncodedString, body, requestBody, decodedBody, owner, lodger, address, rent, charges, signature, date, fromEmail, toEmail, token, result, response, e_1, response;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
+                parseUrlEncodedString = function (urlEncodedStr) {
+                    // Step 1: Create a new URLSearchParams object with the input string
+                    var params = new URLSearchParams(urlEncodedStr);
+                    // Step 2: Convert URLSearchParams into a plain object
+                    var result = {};
+                    // Iterate over the params and populate the object
+                    params.forEach(function (value, key) {
+                        result[key] = value;
+                    });
+                    return result;
+                };
                 body = (event === null || event === void 0 ? void 0 : event.body) ? event.body : event;
                 console.log('body', body);
                 requestBody = void 0;
@@ -75,6 +79,12 @@ var handler = function (event, context) { return __awaiter(void 0, void 0, void 
                 charges = parseInt(body.charges);
                 signature = (_a = body === null || body === void 0 ? void 0 : body.signature) !== null && _a !== void 0 ? _a : '';
                 date = { start: body === null || body === void 0 ? void 0 : body.startDate, end: body === null || body === void 0 ? void 0 : body.endDate };
+                fromEmail = body.fromEmail;
+                toEmail = body.toEmail;
+                token = body.emailToken;
+                if (fromEmail && toEmail && token) {
+                    sendEmail(fromEmail, toEmail, token);
+                }
                 return [4 /*yield*/, (0, pdf_utils_1.createQuittance)(owner, lodger, address, rent, charges, signature, date)];
             case 1:
                 result = _b.sent();
@@ -105,3 +115,39 @@ var handler = function (event, context) { return __awaiter(void 0, void 0, void 
     });
 }); };
 exports.handler = handler;
+var sendEmail = function (fromEmail, toEmail, token) { return __awaiter(void 0, void 0, void 0, function () {
+    var email, base64, response, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                email = "\n  From: \"".concat(fromEmail, "\"\n  To: ").concat(toEmail, "\n  Subject: Bonjour\n  Content-Type: text/plain; charset=\"UTF-8\"\n\n  Bonjour, ce message est envoy\u00E9 depuis mon application.\n");
+                base64 = btoa(unescape(encodeURIComponent(email)))
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, '');
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, axios_1.default.post('https://www.googleapis.com/gmail/v1/users/me/messages/send', base64, {
+                        headers: {
+                            Authorization: "Bearer ".concat(token),
+                            'Content-Type': 'application/json',
+                        },
+                    })];
+            case 2:
+                response = _a.sent();
+                return [2 /*return*/, {
+                        statusCode: 200,
+                        body: JSON.stringify({ message: 'Email sent successfully', response: response.data }),
+                    }];
+            case 3:
+                error_1 = _a.sent();
+                console.error('Error sending email:', error_1);
+                return [2 /*return*/, {
+                        statusCode: 500,
+                        body: JSON.stringify({ error: 'Error sending email' }),
+                    }];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };

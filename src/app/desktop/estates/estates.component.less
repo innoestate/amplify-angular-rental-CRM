@@ -1,2 +1,20 @@
 @import "../../../styles/themes/mixin";
 
+
+.action{
+  background-color: @tertiary !important;
+  background: repeating-linear-gradient(
+    45deg,         /* Angle de la diagonale */
+    @yellow-6,        /* Couleur 1 */
+    @yellow-6 5px,   /* Largeur de la bande jaune */
+    @yellow-6 5px,    /* Début de la bande noire */
+    @yellow-6 10px     /* Largeur de la bande noire */
+  );
+  // border: 1px solid @yellow-5;
+  background-size: auto;
+  color: @white;
+  span{
+    color: @white;
+    font-size: large;
+  }
+}

@@ -13,7 +13,7 @@
   </div>
   @if(estates$ | async; as estates){
   @if(estates.length){
-  <nz-table #tables [nzData]="estates">
+  <nz-table #tables [nzData]="estates" >
     <thead>
       <tr>
         <th>adresse</th>
@@ -80,7 +80,7 @@
         }
 
         <td nz-dropdown [nzDropdownMenu]="menuActions" class="primary clickable rcc">
-          <div class="circle large">
+          <div class="circle large action">
             <span nz-icon nzType="tool" nzTheme="fill"></span>
           </div>
           <!-- <button nz-button nzType="primary" nzSize="small" (click)="editEstate(estate)">Edit</button>

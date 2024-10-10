@@ -14,6 +14,18 @@
 @secondary-8: @cyan-8;
 @secondary-9: @cyan-9;
 
+
+@tertiary: @yellow-6;
+@tertiary-1: @yellow-1;
+@tertiary-2: @yellow-2;
+@tertiary-3: @yellow-3;
+@tertiary-4: @yellow-4;
+@tertiary-5: @yellow-5;
+@tertiary-6: @yellow-6;
+@tertiary-7: @yellow-7;
+@tertiary-8: @yellow-8;
+@tertiary-9: @yellow-9;
+
 .table-container {
   display: flex;
   flex-direction: column;
@@ -62,13 +74,23 @@
     display: flex;
     flex-flow: row wrap;
     gap: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.1); // add shadow if needed
+
   }
 
   ::ng-deep {
+
     .ant-table-container {
       min-height: 50vh;
       min-width: 750px;
-      margin: 20px;
+      // border-radius: 8px; // adjust as needed
+      box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.1); // add shadow if needed
+      // margin: 20px
+      // background-color: @primary-1 ;//@card-background;
+    }
+    .ant-table{
+      // border-radius: 8px; // adjust as needed
       // background-color: @primary-1 ;//@card-background;
     }
 
@@ -106,6 +128,11 @@
   font-weight: 500;
 }
 
+.tertiary {
+  color: @tertiary;
+  font-weight: 500;
+}
+
 .empty {
   color: @text-color-secondary;
   font-weight: 300;
@@ -120,7 +147,8 @@
   height: 1rem;
   text-align: center;
   font-size: 0.67rem;
-  &.large{
+
+  &.large {
     border-radius: 20px;
     width: 1.7rem;
     height: 1.7rem;
@@ -170,26 +198,30 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  &:hover{
+
+  &:hover {
     background-color: @secondary-5;
     color: @white;
   }
-  &.create{
+
+  &.create {
     background-color: @primary-2;
     border: 1px solid @primary-5;
     color: @primary-5;
-    &:hover{
+
+    &:hover {
       background-color: @primary-5;
       color: @white;
     }
   }
 }
 
-.link{
+.link {
   cursor: pointer !important;
   color: @primary-6 !important;
   text-decoration: underline;
-  &:hover{
+
+  &:hover {
     color: @primary-9;
   }
 }

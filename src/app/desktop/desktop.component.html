@@ -12,7 +12,7 @@
 
     </ul>
     <ng-container *ngIf="authenticator.user">
-      <amplify-authenticator>
+      <amplify-authenticator [socialProviders]="['google']">
         <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
           <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-login">
             <li nz-menu-item (click)="signOut()">Sign Out</li>
@@ -25,7 +25,7 @@
 
   <nz-content class="inner-content">
     <ng-container *ngIf="!authenticator.user">
-      <amplify-authenticator>
+      <amplify-authenticator [socialProviders]="['google']">
         <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
           <button (click)="signOut()">Sign Out</button>
         </ng-template>

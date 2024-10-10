@@ -83,6 +83,7 @@ var getNumberOfDaysBetween2Dates = function (dateStart, dateEnd) {
 };
 var createQuittance = function (bailleur, locataire, address, loyer, charges, signature, date, madeAt) {
     if (date === void 0) { date = { start: null, end: null }; }
+    //@ts-ignore
     return new Promise(function (resolve, reject) {
         try {
             if (!date) {

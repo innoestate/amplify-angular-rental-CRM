@@ -81,6 +81,7 @@ export const createQuittance = (
   madeAt?: string | null
 ) => {
 
+  //@ts-ignore
   return new Promise<Buffer>((resolve, reject) => {
     try {
 
